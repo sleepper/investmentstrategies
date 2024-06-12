@@ -7,6 +7,7 @@ import scipy.stats as stats
 import seaborn as sns
 from PIL import Image
 from statsmodels.graphics.tsaplots import plot_acf
+from statsmodels.distributions.empirical_distribution import ECDF
 
 class asset_performance:
     
@@ -47,9 +48,10 @@ class asset_performance:
         np.random.normal(self.mean_log_return, self.vola, self.period)
 
     def __fit_to_distributions__(self):
-        rvs = stats.norm(loc=self.mean_log_return, scale=self.vola)
         
-        self.theo_sample = rvs.rvs(size=self.period)
+        rvs = stats.norm(loc=self.mean_log_return, scale=self.vola)
+        n = len(self.log_returns)
+        self.theo_sample = rvs.rvs(size=n)
         self.real_sample = np.array(self.log_returns[self.ticker])
 
     def QQ_plot(self):
@@ -59,6 +61,27 @@ class asset_performance:
         
         plt.savefig('qq plot.png')
         plt.clf()
+    
+    def __ecdf__(self, data):
+
+        u_x = np.sort(data)
+        n = len(u_x)
+        u_y = np.arange(1, n + 1) / n
+        return u_x, u_y
+        
+    ### TODO:looks wrong to me
+    def ECDF_plot(self):
+        
+        cdf_empirical = self.__ecdf__(self.real_sample)
+        
+        u_x = np.linspace(min(self.real_sample), max(self.real_sample), 90)
+        u_y = stats.norm.cdf(u_x, self.mean_log_return, self.vola)
+        cdf_theoretical = [u_x,u_y]
+
+        plt.plot(cdf_empirical[0],cdf_empirical[1])
+        plt.plot(cdf_theoretical[0],cdf_theoretical[1])
+        
+        plt.savefig("ecdf plot.png")
 
     def VaR_plot(self):
         
@@ -105,5 +128,8 @@ class asset_performance:
         plot_acf(self.log_returns).savefig('ACF plot.png')
 
 df_check = asset_performance("ADSK")
+df_check.ECDF_plot()
 
-df_check.ACF_plot()
+
+
+
