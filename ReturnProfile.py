@@ -24,15 +24,21 @@ class asset_performance:
         self.__fit_to_distributions__()
 
     def download_data_for_a_ticker(self):
+        
         df_temp = pd.read_csv(self.path + self.ticker + '.csv')
         df_temp = df_temp.set_index('date')
+        
         # there is more data, adjClose is a starter
-        df_temp = df_temp[['adjClose']]
-        df_temp.rename(columns={'adjClose': self.ticker}, inplace=True)
-        self.market_data = df_temp
+        df_prices = df_temp[['adjClose']]
+        df_prices.rename(columns={'adjClose': self.ticker}, inplace=True)
+        self.df_prices = df_prices
+
+        df_volumes = df_temp[['volume']]
+        self.df_volumes = df_volumes
+
     
     def compute_log_returns(self):
-        df_temp = -(self.market_data.shift(0).apply(np.log) - self.market_data.shift(1).apply(np.log)) #idk why I have to put a minus in front
+        df_temp = -(self.df_prices.shift(0).apply(np.log) - self.df_prices.shift(1).apply(np.log)) #idk why I have to put a minus in front
         self.log_returns = df_temp.shift(-1).dropna()
 
     def compute_stats(self):
@@ -136,9 +142,33 @@ class asset_performance:
         
         plot_acf(self.log_returns).savefig('ACF plot.png')
 
-df_check = asset_performance("ADSK")
-df_check.ECDF_plot()
+    def moving_average(self):
+        
+        loc_df_prices = self.df_prices.sort_index(ascending=True)
+        loc_df_volumes = self.df_volumes.sort_index(ascending=True)
 
+        plt.subplot(121).plot(loc_df_prices)
+        plt.subplot(121).plot(loc_df_prices.rolling(window=30).mean())
+        plt.subplot(121).plot(loc_df_prices.ewm(span=30, adjust=False).mean())
+        plt.subplot(122).plot(loc_df_volumes)
+
+        plt.savefig("MA.png")
+
+    # def rsi(self):
+
+        # loc_df_prices = self.df_prices.sort_index(ascending=True)
+
+        # df_gains = loc_df_prices.where(df_returns>0,0).rolling(window = 14).mean()
+        # df_loss = df_returns.where(df_returns<0,0).abs().rolling(window = 14).mean()
+
+        # rsi = 100 - (100/(1+df_gains/df_loss))
+        # rsi.dropna(inplace=True)
+
+    # def vwap(self):
+        # pass
+
+# df_check = asset_performance("ADSK")
+# df_check.moving_average()
 
 
 
