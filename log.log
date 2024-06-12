@@ -1,0 +1,447 @@
+2024-05-17 21:38:24,218 - __main__ - INFO - Processing AMD
+2024-05-17 21:38:26,094 - __main__ - INFO - Processing AMCR
+2024-05-17 21:38:27,957 - __main__ - INFO - Processing AME
+2024-05-17 21:38:30,255 - __main__ - INFO - Processing TEAM
+2024-05-17 21:38:32,093 - __main__ - INFO - Processing ADSK
+2024-05-17 21:38:34,004 - __main__ - INFO - Processing BALL
+2024-05-17 21:38:36,522 - __main__ - INFO - Processing KO
+2024-05-17 21:38:38,561 - __main__ - INFO - Processing LHA.DE
+2024-05-17 21:38:40,475 - __main__ - INFO - Processing DUOL
+2024-05-17 21:38:42,796 - __main__ - INFO - Processing ENX.PA
+2024-05-17 21:38:44,652 - __main__ - INFO - Processing INTC
+2024-05-17 21:38:47,108 - __main__ - INFO - Processing IP
+2024-05-17 21:38:48,984 - __main__ - INFO - Processing LOGI
+2024-05-17 21:38:50,895 - __main__ - INFO - Processing MA
+2024-05-17 21:38:52,929 - __main__ - INFO - Processing MDLZ
+2024-05-17 21:38:55,138 - __main__ - INFO - Processing PLTR
+2024-05-17 21:38:56,720 - __main__ - INFO - Processing PYPL
+2024-05-17 21:38:58,649 - __main__ - INFO - Processing RI.PA
+2024-05-17 21:39:00,893 - __main__ - INFO - Processing PFE.DE
+2024-05-17 21:39:02,814 - __main__ - INFO - Processing PHIA.AS
+2024-05-17 21:39:05,900 - __main__ - INFO - Processing SEE
+2024-05-17 21:39:08,480 - __main__ - INFO - Processing THULE.ST
+2024-05-17 21:39:10,358 - __main__ - INFO - Processing UNA.AS
+2024-05-17 21:39:12,084 - __main__ - INFO - Processing WDI
+2024-05-17 21:59:22,137 - __main__ - INFO - Processing ASML.AS
+2024-05-18 14:45:49,099 - __main__ - INFO - Reading the tickers from the current protfolio
+2024-05-18 14:51:32,196 - __main__ - INFO - Reading the tickers from the current protfolio
+2024-05-18 14:51:37,333 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/ADBE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:37,335 - __main__ - INFO - Requesting the market data for ADBE
+2024-05-18 14:51:37,336 - __main__ - INFO - Received data for ADBE
+2024-05-18 14:51:37,446 - __main__ - INFO - Market data for ADBE saved
+2024-05-18 14:51:38,442 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/AMD?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:38,445 - __main__ - INFO - Requesting the market data for AMD
+2024-05-18 14:51:38,445 - __main__ - INFO - Received data for AMD
+2024-05-18 14:51:38,526 - __main__ - INFO - Market data for AMD saved
+2024-05-18 14:51:40,556 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/AMCR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:40,559 - __main__ - INFO - Requesting the market data for AMCR
+2024-05-18 14:51:40,559 - __main__ - INFO - Received data for AMCR
+2024-05-18 14:51:40,652 - __main__ - INFO - Market data for AMCR saved
+2024-05-18 14:51:41,617 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/AME?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:41,618 - __main__ - INFO - Requesting the market data for AME
+2024-05-18 14:51:41,618 - __main__ - INFO - Received data for AME
+2024-05-18 14:51:41,695 - __main__ - INFO - Market data for AME saved
+2024-05-18 14:51:43,197 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/ASML.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:43,199 - __main__ - INFO - Requesting the market data for ASML.AS
+2024-05-18 14:51:43,200 - __main__ - INFO - Received data for ASML.AS
+2024-05-18 14:51:43,291 - __main__ - INFO - Market data for ASML.AS saved
+2024-05-18 14:51:44,253 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/TEAM?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:44,254 - __main__ - INFO - Requesting the market data for TEAM
+2024-05-18 14:51:44,254 - __main__ - INFO - Received data for TEAM
+2024-05-18 14:51:44,329 - __main__ - INFO - Market data for TEAM saved
+2024-05-18 14:51:45,310 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/ADSK?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:45,310 - __main__ - INFO - Requesting the market data for ADSK
+2024-05-18 14:51:45,311 - __main__ - INFO - Received data for ADSK
+2024-05-18 14:51:45,389 - __main__ - INFO - Market data for ADSK saved
+2024-05-18 14:51:46,937 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/BALL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:46,937 - __main__ - INFO - Requesting the market data for BALL
+2024-05-18 14:51:46,937 - __main__ - INFO - Received data for BALL
+2024-05-18 14:51:47,018 - __main__ - INFO - Market data for BALL saved
+2024-05-18 14:51:48,014 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/KO?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:48,015 - __main__ - INFO - Requesting the market data for KO
+2024-05-18 14:51:48,015 - __main__ - INFO - Received data for KO
+2024-05-18 14:51:48,099 - __main__ - INFO - Market data for KO saved
+2024-05-18 14:51:48,725 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/LHA.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:48,726 - __main__ - INFO - Requesting the market data for LHA.DE
+2024-05-18 14:51:48,726 - __main__ - INFO - Received data for LHA.DE
+2024-05-18 14:51:48,803 - __main__ - INFO - Market data for LHA.DE saved
+2024-05-18 14:51:49,805 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/DUOL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:49,806 - __main__ - INFO - Requesting the market data for DUOL
+2024-05-18 14:51:49,806 - __main__ - INFO - Received data for DUOL
+2024-05-18 14:51:49,888 - __main__ - INFO - Market data for DUOL saved
+2024-05-18 14:51:50,862 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/ENX.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:50,863 - __main__ - INFO - Requesting the market data for ENX.PA
+2024-05-18 14:51:50,863 - __main__ - INFO - Received data for ENX.PA
+2024-05-18 14:51:50,937 - __main__ - INFO - Market data for ENX.PA saved
+2024-05-18 14:51:51,937 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/INTC?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:51,938 - __main__ - INFO - Requesting the market data for INTC
+2024-05-18 14:51:51,938 - __main__ - INFO - Received data for INTC
+2024-05-18 14:51:52,012 - __main__ - INFO - Market data for INTC saved
+2024-05-18 14:51:53,004 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/IP?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:53,005 - __main__ - INFO - Requesting the market data for IP
+2024-05-18 14:51:53,005 - __main__ - INFO - Received data for IP
+2024-05-18 14:51:53,082 - __main__ - INFO - Market data for IP saved
+2024-05-18 14:51:55,093 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/LOGI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:55,095 - __main__ - INFO - Requesting the market data for LOGI
+2024-05-18 14:51:55,096 - __main__ - INFO - Received data for LOGI
+2024-05-18 14:51:55,190 - __main__ - INFO - Market data for LOGI saved
+2024-05-18 14:51:56,119 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/MA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:56,119 - __main__ - INFO - Requesting the market data for MA
+2024-05-18 14:51:56,120 - __main__ - INFO - Received data for MA
+2024-05-18 14:51:56,195 - __main__ - INFO - Market data for MA saved
+2024-05-18 14:51:57,252 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/MDLZ?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:57,253 - __main__ - INFO - Requesting the market data for MDLZ
+2024-05-18 14:51:57,254 - __main__ - INFO - Received data for MDLZ
+2024-05-18 14:51:57,333 - __main__ - INFO - Market data for MDLZ saved
+2024-05-18 14:51:58,844 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/PLTR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:51:58,846 - __main__ - INFO - Requesting the market data for PLTR
+2024-05-18 14:51:58,846 - __main__ - INFO - Received data for PLTR
+2024-05-18 14:51:58,933 - __main__ - INFO - Market data for PLTR saved
+2024-05-18 14:52:00,462 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/PYPL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:52:00,463 - __main__ - INFO - Requesting the market data for PYPL
+2024-05-18 14:52:00,464 - __main__ - INFO - Received data for PYPL
+2024-05-18 14:52:00,551 - __main__ - INFO - Market data for PYPL saved
+2024-05-18 14:52:01,552 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/RI.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:52:01,554 - __main__ - INFO - Requesting the market data for RI.PA
+2024-05-18 14:52:01,555 - __main__ - INFO - Received data for RI.PA
+2024-05-18 14:52:01,642 - __main__ - INFO - Market data for RI.PA saved
+2024-05-18 14:52:02,268 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/PFE.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:52:02,268 - __main__ - INFO - Requesting the market data for PFE.DE
+2024-05-18 14:52:02,268 - __main__ - INFO - Received data for PFE.DE
+2024-05-18 14:52:02,349 - __main__ - INFO - Market data for PFE.DE saved
+2024-05-18 14:52:03,349 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/PHIA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:52:03,352 - __main__ - INFO - Requesting the market data for PHIA.AS
+2024-05-18 14:52:03,352 - __main__ - INFO - Received data for PHIA.AS
+2024-05-18 14:52:03,447 - __main__ - INFO - Market data for PHIA.AS saved
+2024-05-18 14:52:04,469 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/SEE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:52:04,471 - __main__ - INFO - Requesting the market data for SEE
+2024-05-18 14:52:04,471 - __main__ - INFO - Received data for SEE
+2024-05-18 14:52:04,553 - __main__ - INFO - Market data for SEE saved
+2024-05-18 14:52:07,067 - __main__ - INFO - Sending the following requesthttps://financialmodelingprep.com/api/v3/historical-price-full/R6C.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:52:07,067 - __main__ - INFO - Requesting the market data for R6C.DE
+2024-05-18 14:59:47,103 - __main__ - INFO - Reading the tickers from the current protfolio
+2024-05-18 14:59:48,148 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ADBE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:48,149 - __main__ - INFO - Requesting the market data for ADBE
+2024-05-18 14:59:48,149 - __main__ - INFO - Received data for ADBE
+2024-05-18 14:59:48,238 - __main__ - INFO - Market data for ADBE saved
+2024-05-18 14:59:49,201 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AMD?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:49,202 - __main__ - INFO - Requesting the market data for AMD
+2024-05-18 14:59:49,202 - __main__ - INFO - Received data for AMD
+2024-05-18 14:59:49,286 - __main__ - INFO - Market data for AMD saved
+2024-05-18 14:59:50,250 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AMCR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:50,251 - __main__ - INFO - Requesting the market data for AMCR
+2024-05-18 14:59:50,251 - __main__ - INFO - Received data for AMCR
+2024-05-18 14:59:50,329 - __main__ - INFO - Market data for AMCR saved
+2024-05-18 14:59:52,405 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AME?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:52,407 - __main__ - INFO - Requesting the market data for AME
+2024-05-18 14:59:52,408 - __main__ - INFO - Received data for AME
+2024-05-18 14:59:52,503 - __main__ - INFO - Market data for AME saved
+2024-05-18 14:59:55,050 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ASML.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:55,051 - __main__ - INFO - Requesting the market data for ASML.AS
+2024-05-18 14:59:55,051 - __main__ - INFO - Received data for ASML.AS
+2024-05-18 14:59:55,128 - __main__ - INFO - Market data for ASML.AS saved
+2024-05-18 14:59:56,129 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/TEAM?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:56,129 - __main__ - INFO - Requesting the market data for TEAM
+2024-05-18 14:59:56,129 - __main__ - INFO - Received data for TEAM
+2024-05-18 14:59:56,211 - __main__ - INFO - Market data for TEAM saved
+2024-05-18 14:59:58,196 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ADSK?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:58,198 - __main__ - INFO - Requesting the market data for ADSK
+2024-05-18 14:59:58,198 - __main__ - INFO - Received data for ADSK
+2024-05-18 14:59:58,281 - __main__ - INFO - Market data for ADSK saved
+2024-05-18 14:59:59,273 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/BALL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 14:59:59,274 - __main__ - INFO - Requesting the market data for BALL
+2024-05-18 14:59:59,274 - __main__ - INFO - Received data for BALL
+2024-05-18 14:59:59,351 - __main__ - INFO - Market data for BALL saved
+2024-05-18 15:00:00,327 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/KO?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:00,328 - __main__ - INFO - Requesting the market data for KO
+2024-05-18 15:00:00,328 - __main__ - INFO - Received data for KO
+2024-05-18 15:00:00,418 - __main__ - INFO - Market data for KO saved
+2024-05-18 15:00:01,424 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/LHA.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:01,424 - __main__ - INFO - Requesting the market data for LHA.DE
+2024-05-18 15:00:01,425 - __main__ - INFO - Received data for LHA.DE
+2024-05-18 15:00:01,499 - __main__ - INFO - Market data for LHA.DE saved
+2024-05-18 15:00:02,485 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/DUOL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:02,485 - __main__ - INFO - Requesting the market data for DUOL
+2024-05-18 15:00:02,485 - __main__ - INFO - Received data for DUOL
+2024-05-18 15:00:02,566 - __main__ - INFO - Market data for DUOL saved
+2024-05-18 15:00:04,090 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ENX.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:04,090 - __main__ - INFO - Requesting the market data for ENX.PA
+2024-05-18 15:00:04,090 - __main__ - INFO - Received data for ENX.PA
+2024-05-18 15:00:04,173 - __main__ - INFO - Market data for ENX.PA saved
+2024-05-18 15:00:05,315 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/INTC?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:05,318 - __main__ - INFO - Requesting the market data for INTC
+2024-05-18 15:00:05,318 - __main__ - INFO - Received data for INTC
+2024-05-18 15:00:05,413 - __main__ - INFO - Market data for INTC saved
+2024-05-18 15:00:06,381 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/IP?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:06,383 - __main__ - INFO - Requesting the market data for IP
+2024-05-18 15:00:06,383 - __main__ - INFO - Received data for IP
+2024-05-18 15:00:06,471 - __main__ - INFO - Market data for IP saved
+2024-05-18 15:00:07,518 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/LOGI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:07,518 - __main__ - INFO - Requesting the market data for LOGI
+2024-05-18 15:00:07,519 - __main__ - INFO - Received data for LOGI
+2024-05-18 15:00:07,597 - __main__ - INFO - Market data for LOGI saved
+2024-05-18 15:00:08,572 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/MA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:08,573 - __main__ - INFO - Requesting the market data for MA
+2024-05-18 15:00:08,573 - __main__ - INFO - Received data for MA
+2024-05-18 15:00:08,652 - __main__ - INFO - Market data for MA saved
+2024-05-18 15:00:09,601 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/MDLZ?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:09,601 - __main__ - INFO - Requesting the market data for MDLZ
+2024-05-18 15:00:09,601 - __main__ - INFO - Received data for MDLZ
+2024-05-18 15:00:09,685 - __main__ - INFO - Market data for MDLZ saved
+2024-05-18 15:00:10,310 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PLTR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:10,313 - __main__ - INFO - Requesting the market data for PLTR
+2024-05-18 15:00:10,313 - __main__ - INFO - Received data for PLTR
+2024-05-18 15:00:10,405 - __main__ - INFO - Market data for PLTR saved
+2024-05-18 15:00:11,374 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PYPL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:11,376 - __main__ - INFO - Requesting the market data for PYPL
+2024-05-18 15:00:11,376 - __main__ - INFO - Received data for PYPL
+2024-05-18 15:00:11,470 - __main__ - INFO - Market data for PYPL saved
+2024-05-18 15:00:12,467 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/RI.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:12,468 - __main__ - INFO - Requesting the market data for RI.PA
+2024-05-18 15:00:12,468 - __main__ - INFO - Received data for RI.PA
+2024-05-18 15:00:12,546 - __main__ - INFO - Market data for RI.PA saved
+2024-05-18 15:00:13,539 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PFE.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:13,540 - __main__ - INFO - Requesting the market data for PFE.DE
+2024-05-18 15:00:13,540 - __main__ - INFO - Received data for PFE.DE
+2024-05-18 15:00:13,615 - __main__ - INFO - Market data for PFE.DE saved
+2024-05-18 15:00:14,304 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PHIA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:14,304 - __main__ - INFO - Requesting the market data for PHIA.AS
+2024-05-18 15:00:14,305 - __main__ - INFO - Received data for PHIA.AS
+2024-05-18 15:00:14,383 - __main__ - INFO - Market data for PHIA.AS saved
+2024-05-18 15:00:17,156 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/SEE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:17,157 - __main__ - INFO - Requesting the market data for SEE
+2024-05-18 15:00:17,157 - __main__ - INFO - Received data for SEE
+2024-05-18 15:00:17,232 - __main__ - INFO - Market data for SEE saved
+2024-05-18 15:00:19,234 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/R6C.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:19,235 - __main__ - INFO - Requesting the market data for R6C.DE
+2024-05-18 15:00:19,235 - __main__ - INFO - Error while processing R6C.DE
+2024-05-18 15:00:20,721 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/THULE.ST?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:20,723 - __main__ - INFO - Requesting the market data for THULE.ST
+2024-05-18 15:00:20,723 - __main__ - INFO - Received data for THULE.ST
+2024-05-18 15:00:20,818 - __main__ - INFO - Market data for THULE.ST saved
+2024-05-18 15:00:21,828 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/UNA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:21,829 - __main__ - INFO - Requesting the market data for UNA.AS
+2024-05-18 15:00:21,829 - __main__ - INFO - Received data for UNA.AS
+2024-05-18 15:00:21,915 - __main__ - INFO - Market data for UNA.AS saved
+2024-05-18 15:00:23,558 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/WDI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:00:23,558 - __main__ - INFO - Requesting the market data for WDI
+2024-05-18 15:00:23,558 - __main__ - INFO - Received data for WDI
+2024-05-18 15:00:23,654 - __main__ - INFO - Market data for WDI saved
+2024-05-18 15:04:59,338 - __main__ - INFO - Reading the tickers from the current protfolio
+2024-05-18 15:05:00,028 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ADBE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:00,029 - __main__ - INFO - Requesting the market data for ADBE
+2024-05-18 15:05:00,029 - __main__ - INFO - Received data for ADBE
+2024-05-18 15:05:00,105 - __main__ - INFO - Market data for ADBE saved
+2024-05-18 15:05:01,081 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AMD?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:01,083 - __main__ - INFO - Requesting the market data for AMD
+2024-05-18 15:05:01,083 - __main__ - INFO - Received data for AMD
+2024-05-18 15:05:01,173 - __main__ - INFO - Market data for AMD saved
+2024-05-18 15:05:04,044 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AMCR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:04,044 - __main__ - INFO - Requesting the market data for AMCR
+2024-05-18 15:05:04,045 - __main__ - INFO - Received data for AMCR
+2024-05-18 15:05:04,124 - __main__ - INFO - Market data for AMCR saved
+2024-05-18 15:05:05,110 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AME?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:05,111 - __main__ - INFO - Requesting the market data for AME
+2024-05-18 15:05:05,111 - __main__ - INFO - Received data for AME
+2024-05-18 15:05:05,190 - __main__ - INFO - Market data for AME saved
+2024-05-18 15:05:05,826 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ASML.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:05,827 - __main__ - INFO - Requesting the market data for ASML.AS
+2024-05-18 15:05:05,827 - __main__ - INFO - Received data for ASML.AS
+2024-05-18 15:05:05,903 - __main__ - INFO - Market data for ASML.AS saved
+2024-05-18 15:05:07,547 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/TEAM?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:07,549 - __main__ - INFO - Requesting the market data for TEAM
+2024-05-18 15:05:07,550 - __main__ - INFO - Received data for TEAM
+2024-05-18 15:05:07,643 - __main__ - INFO - Market data for TEAM saved
+2024-05-18 15:05:08,275 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ADSK?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:08,277 - __main__ - INFO - Requesting the market data for ADSK
+2024-05-18 15:05:08,278 - __main__ - INFO - Received data for ADSK
+2024-05-18 15:05:08,373 - __main__ - INFO - Market data for ADSK saved
+2024-05-18 15:05:09,399 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/BALL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:09,400 - __main__ - INFO - Requesting the market data for BALL
+2024-05-18 15:05:09,400 - __main__ - INFO - Received data for BALL
+2024-05-18 15:05:09,478 - __main__ - INFO - Market data for BALL saved
+2024-05-18 15:05:11,519 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/KO?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:11,522 - __main__ - INFO - Requesting the market data for KO
+2024-05-18 15:05:11,523 - __main__ - INFO - Received data for KO
+2024-05-18 15:05:11,600 - __main__ - INFO - Market data for KO saved
+2024-05-18 15:05:12,240 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/LHA.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:12,241 - __main__ - INFO - Requesting the market data for LHA.DE
+2024-05-18 15:05:12,241 - __main__ - INFO - Received data for LHA.DE
+2024-05-18 15:05:12,321 - __main__ - INFO - Market data for LHA.DE saved
+2024-05-18 15:05:13,356 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/DUOL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:13,356 - __main__ - INFO - Requesting the market data for DUOL
+2024-05-18 15:05:13,356 - __main__ - INFO - Received data for DUOL
+2024-05-18 15:05:13,462 - __main__ - INFO - Market data for DUOL saved
+2024-05-18 15:05:14,458 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ENX.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:14,459 - __main__ - INFO - Requesting the market data for ENX.PA
+2024-05-18 15:05:14,459 - __main__ - INFO - Received data for ENX.PA
+2024-05-18 15:05:14,535 - __main__ - INFO - Market data for ENX.PA saved
+2024-05-18 15:05:15,509 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/INTC?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:15,510 - __main__ - INFO - Requesting the market data for INTC
+2024-05-18 15:05:15,510 - __main__ - INFO - Received data for INTC
+2024-05-18 15:05:15,587 - __main__ - INFO - Market data for INTC saved
+2024-05-18 15:05:16,571 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/IP?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:16,571 - __main__ - INFO - Requesting the market data for IP
+2024-05-18 15:05:16,571 - __main__ - INFO - Received data for IP
+2024-05-18 15:05:16,653 - __main__ - INFO - Market data for IP saved
+2024-05-18 15:05:17,265 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/LOGI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:17,266 - __main__ - INFO - Requesting the market data for LOGI
+2024-05-18 15:05:17,266 - __main__ - INFO - Received data for LOGI
+2024-05-18 15:05:17,350 - __main__ - INFO - Market data for LOGI saved
+2024-05-18 15:05:18,874 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/MA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:18,876 - __main__ - INFO - Requesting the market data for MA
+2024-05-18 15:05:18,876 - __main__ - INFO - Received data for MA
+2024-05-18 15:05:18,959 - __main__ - INFO - Market data for MA saved
+2024-05-18 15:05:19,952 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/MDLZ?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:19,954 - __main__ - INFO - Requesting the market data for MDLZ
+2024-05-18 15:05:19,955 - __main__ - INFO - Received data for MDLZ
+2024-05-18 15:05:20,051 - __main__ - INFO - Market data for MDLZ saved
+2024-05-18 15:05:20,709 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PLTR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:20,710 - __main__ - INFO - Requesting the market data for PLTR
+2024-05-18 15:05:20,710 - __main__ - INFO - Received data for PLTR
+2024-05-18 15:05:20,785 - __main__ - INFO - Market data for PLTR saved
+2024-05-18 15:05:21,756 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PYPL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:21,757 - __main__ - INFO - Requesting the market data for PYPL
+2024-05-18 15:05:21,757 - __main__ - INFO - Received data for PYPL
+2024-05-18 15:05:21,837 - __main__ - INFO - Market data for PYPL saved
+2024-05-18 15:05:22,829 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/RI.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:22,829 - __main__ - INFO - Requesting the market data for RI.PA
+2024-05-18 15:05:22,829 - __main__ - INFO - Received data for RI.PA
+2024-05-18 15:05:22,904 - __main__ - INFO - Market data for RI.PA saved
+2024-05-18 15:05:23,611 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PFE.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:23,612 - __main__ - INFO - Requesting the market data for PFE.DE
+2024-05-18 15:05:23,613 - __main__ - INFO - Received data for PFE.DE
+2024-05-18 15:05:23,700 - __main__ - INFO - Market data for PFE.DE saved
+2024-05-18 15:05:24,693 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PHIA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:24,693 - __main__ - INFO - Requesting the market data for PHIA.AS
+2024-05-18 15:05:24,694 - __main__ - INFO - Received data for PHIA.AS
+2024-05-18 15:05:24,772 - __main__ - INFO - Market data for PHIA.AS saved
+2024-05-18 15:05:26,342 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/SEE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:26,345 - __main__ - INFO - Requesting the market data for SEE
+2024-05-18 15:05:26,345 - __main__ - INFO - Received data for SEE
+2024-05-18 15:05:26,439 - __main__ - INFO - Market data for SEE saved
+2024-05-18 15:05:27,407 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/SHELL.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:27,408 - __main__ - INFO - Requesting the market data for SHELL.AS
+2024-05-18 15:05:27,408 - __main__ - INFO - Received data for SHELL.AS
+2024-05-18 15:05:27,486 - __main__ - INFO - Market data for SHELL.AS saved
+2024-05-18 15:05:28,466 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/THULE.ST?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:28,466 - __main__ - INFO - Requesting the market data for THULE.ST
+2024-05-18 15:05:28,467 - __main__ - INFO - Received data for THULE.ST
+2024-05-18 15:05:28,541 - __main__ - INFO - Market data for THULE.ST saved
+2024-05-18 15:05:29,515 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/UNA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:29,516 - __main__ - INFO - Requesting the market data for UNA.AS
+2024-05-18 15:05:29,516 - __main__ - INFO - Received data for UNA.AS
+2024-05-18 15:05:29,591 - __main__ - INFO - Market data for UNA.AS saved
+2024-05-18 15:05:30,616 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/WDI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:05:30,618 - __main__ - INFO - Requesting the market data for WDI
+2024-05-18 15:05:30,618 - __main__ - INFO - Received data for WDI
+2024-05-18 15:05:30,711 - __main__ - INFO - Market data for WDI saved
+2024-05-18 15:12:04,182 - __main__ - INFO - Reading the tickers from the current protfolio
+2024-05-18 15:12:05,728 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ADBE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:05,730 - __main__ - INFO - Requesting the market data for ADBE
+2024-05-18 15:12:05,731 - __main__ - INFO - Received data for ADBE
+2024-05-18 15:12:05,825 - __main__ - INFO - Market data for ADBE saved
+2024-05-18 15:12:06,433 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AMD?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:06,434 - __main__ - INFO - Requesting the market data for AMD
+2024-05-18 15:12:06,434 - __main__ - INFO - Received data for AMD
+2024-05-18 15:12:06,515 - __main__ - INFO - Market data for AMD saved
+2024-05-18 15:12:08,039 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AMCR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:08,044 - __main__ - INFO - Requesting the market data for AMCR
+2024-05-18 15:12:08,045 - __main__ - INFO - Received data for AMCR
+2024-05-18 15:12:08,141 - __main__ - INFO - Market data for AMCR saved
+2024-05-18 15:12:08,757 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/AME?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:08,759 - __main__ - INFO - Requesting the market data for AME
+2024-05-18 15:12:08,759 - __main__ - INFO - Received data for AME
+2024-05-18 15:12:08,847 - __main__ - INFO - Market data for AME saved
+2024-05-18 15:12:09,803 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ASML.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:09,804 - __main__ - INFO - Requesting the market data for ASML.AS
+2024-05-18 15:12:09,805 - __main__ - INFO - Received data for ASML.AS
+2024-05-18 15:12:09,888 - __main__ - INFO - Market data for ASML.AS saved
+2024-05-18 15:12:10,855 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/TEAM?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:10,857 - __main__ - INFO - Requesting the market data for TEAM
+2024-05-18 15:12:10,858 - __main__ - INFO - Received data for TEAM
+2024-05-18 15:12:10,943 - __main__ - INFO - Market data for TEAM saved
+2024-05-18 15:12:11,918 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ADSK?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:11,919 - __main__ - INFO - Requesting the market data for ADSK
+2024-05-18 15:12:11,920 - __main__ - INFO - Received data for ADSK
+2024-05-18 15:12:12,010 - __main__ - INFO - Market data for ADSK saved
+2024-05-18 15:12:12,994 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/BALL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:12,996 - __main__ - INFO - Requesting the market data for BALL
+2024-05-18 15:12:12,996 - __main__ - INFO - Received data for BALL
+2024-05-18 15:12:13,078 - __main__ - INFO - Market data for BALL saved
+2024-05-18 15:12:14,054 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/KO?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:14,057 - __main__ - INFO - Requesting the market data for KO
+2024-05-18 15:12:14,058 - __main__ - INFO - Received data for KO
+2024-05-18 15:12:14,153 - __main__ - INFO - Market data for KO saved
+2024-05-18 15:12:15,654 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/LHA.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:15,656 - __main__ - INFO - Requesting the market data for LHA.DE
+2024-05-18 15:12:15,656 - __main__ - INFO - Received data for LHA.DE
+2024-05-18 15:12:15,741 - __main__ - INFO - Market data for LHA.DE saved
+2024-05-18 15:12:16,725 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/DUOL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:16,727 - __main__ - INFO - Requesting the market data for DUOL
+2024-05-18 15:12:16,728 - __main__ - INFO - Received data for DUOL
+2024-05-18 15:12:16,819 - __main__ - INFO - Market data for DUOL saved
+2024-05-18 15:12:18,453 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/ENX.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:18,456 - __main__ - INFO - Requesting the market data for ENX.PA
+2024-05-18 15:12:18,457 - __main__ - INFO - Received data for ENX.PA
+2024-05-18 15:12:18,555 - __main__ - INFO - Market data for ENX.PA saved
+2024-05-18 15:12:19,535 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/INTC?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:19,537 - __main__ - INFO - Requesting the market data for INTC
+2024-05-18 15:12:19,538 - __main__ - INFO - Received data for INTC
+2024-05-18 15:12:19,631 - __main__ - INFO - Market data for INTC saved
+2024-05-18 15:12:20,631 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/IP?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:20,632 - __main__ - INFO - Requesting the market data for IP
+2024-05-18 15:12:20,633 - __main__ - INFO - Received data for IP
+2024-05-18 15:12:20,716 - __main__ - INFO - Market data for IP saved
+2024-05-18 15:12:22,676 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/LOGI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:22,681 - __main__ - INFO - Requesting the market data for LOGI
+2024-05-18 15:12:22,682 - __main__ - INFO - Received data for LOGI
+2024-05-18 15:12:22,784 - __main__ - INFO - Market data for LOGI saved
+2024-05-18 15:12:23,576 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/MA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:23,578 - __main__ - INFO - Requesting the market data for MA
+2024-05-18 15:12:23,579 - __main__ - INFO - Received data for MA
+2024-05-18 15:12:23,660 - __main__ - INFO - Market data for MA saved
+2024-05-18 15:12:25,660 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/MDLZ?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:25,665 - __main__ - INFO - Requesting the market data for MDLZ
+2024-05-18 15:12:25,666 - __main__ - INFO - Received data for MDLZ
+2024-05-18 15:12:25,752 - __main__ - INFO - Market data for MDLZ saved
+2024-05-18 15:12:26,723 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PLTR?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:26,725 - __main__ - INFO - Requesting the market data for PLTR
+2024-05-18 15:12:26,726 - __main__ - INFO - Received data for PLTR
+2024-05-18 15:12:26,807 - __main__ - INFO - Market data for PLTR saved
+2024-05-18 15:12:28,101 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PYPL?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:28,104 - __main__ - INFO - Requesting the market data for PYPL
+2024-05-18 15:12:28,106 - __main__ - INFO - Received data for PYPL
+2024-05-18 15:12:28,208 - __main__ - INFO - Market data for PYPL saved
+2024-05-18 15:12:29,191 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/RI.PA?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:29,192 - __main__ - INFO - Requesting the market data for RI.PA
+2024-05-18 15:12:29,192 - __main__ - INFO - Received data for RI.PA
+2024-05-18 15:12:29,273 - __main__ - INFO - Market data for RI.PA saved
+2024-05-18 15:12:31,246 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PFE.DE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:31,251 - __main__ - INFO - Requesting the market data for PFE.DE
+2024-05-18 15:12:31,253 - __main__ - INFO - Received data for PFE.DE
+2024-05-18 15:12:31,339 - __main__ - INFO - Market data for PFE.DE saved
+2024-05-18 15:12:32,855 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/PHIA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:32,856 - __main__ - INFO - Requesting the market data for PHIA.AS
+2024-05-18 15:12:32,857 - __main__ - INFO - Received data for PHIA.AS
+2024-05-18 15:12:32,938 - __main__ - INFO - Market data for PHIA.AS saved
+2024-05-18 15:12:34,570 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/SEE?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:34,573 - __main__ - INFO - Requesting the market data for SEE
+2024-05-18 15:12:34,574 - __main__ - INFO - Received data for SEE
+2024-05-18 15:12:34,666 - __main__ - INFO - Market data for SEE saved
+2024-05-18 15:12:36,743 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/SHELL.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:36,744 - __main__ - INFO - Requesting the market data for SHELL.AS
+2024-05-18 15:12:36,744 - __main__ - INFO - Received data for SHELL.AS
+2024-05-18 15:12:36,823 - __main__ - INFO - Market data for SHELL.AS saved
+2024-05-18 15:12:38,340 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/THULE.ST?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:38,341 - __main__ - INFO - Requesting the market data for THULE.ST
+2024-05-18 15:12:38,342 - __main__ - INFO - Received data for THULE.ST
+2024-05-18 15:12:38,420 - __main__ - INFO - Market data for THULE.ST saved
+2024-05-18 15:12:39,952 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/UNA.AS?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:39,953 - __main__ - INFO - Requesting the market data for UNA.AS
+2024-05-18 15:12:39,954 - __main__ - INFO - Received data for UNA.AS
+2024-05-18 15:12:40,036 - __main__ - INFO - Market data for UNA.AS saved
+2024-05-18 15:12:41,010 - __main__ - INFO - Sending the following request https://financialmodelingprep.com/api/v3/historical-price-full/WDI?from=2024-01-01&to=2024-05-17&apikey=1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF
+2024-05-18 15:12:41,012 - __main__ - INFO - Requesting the market data for WDI
+2024-05-18 15:12:41,013 - __main__ - INFO - Received data for WDI
+2024-05-18 15:12:41,093 - __main__ - INFO - Market data for WDI saved
