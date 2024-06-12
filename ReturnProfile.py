@@ -20,7 +20,7 @@ class asset_performance:
         self.download_data_for_a_ticker()
         self.compute_log_returns()
         self.compute_stats()
-        self.generate_reference_distribution()
+        # self.generate_reference_distribution()
         self.__fit_to_distributions__()
 
     def download_data_for_a_ticker(self):
@@ -37,22 +37,31 @@ class asset_performance:
 
     def compute_stats(self):
         df_temp = self.log_returns.iloc[0:self.period-1]
-        self.mean_log_return = df_temp.mean()
-        self.vola = df_temp.std()
-        self.high = df_temp.values.max()
-        self.low = df_temp.values.min()
+        mean = df_temp.mean()
+        std = df_temp.std()
+        ann_period = 252
+        obs_period = len(df_temp)
+        vola = std * (obs_period/ann_period) ** 0.5
+        high = df_temp.values.max()
+        low = df_temp.values.min()
+        skew = df_temp.skew()
+        kurt = df_temp.kurt()
+        
+        self.dict_quick_stats = {"mean" : mean,"vola" : vola, "skew" : skew, "kurt" : kurt, "std" : std ,"observation period (days)" : obs_period}
+        self.mean = mean
+        self.std = std
 
-        print(f"Mean return is {self.mean_log_return}. Vola is {self.vola}. Highest return is {self.high}. Lowest - {self.low}.")
+        print(self.dict_quick_stats)
 
-    def generate_reference_distribution(self):
-        np.random.normal(self.mean_log_return, self.vola, self.period)
+    #def generate_reference_distribution(self):
+    #    np.random.normal(self.dict_quick_stats[{'mean'}])
 
     def __fit_to_distributions__(self):
         
-        rvs = stats.norm(loc=self.mean_log_return, scale=self.vola)
+        rvs = stats.norm(loc=self.mean, scale=self.std)
         n = len(self.log_returns)
         self.theo_sample = rvs.rvs(size=n)
-        self.real_sample = np.array(self.log_returns[self.ticker])
+        self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
 
     def QQ_plot(self):
         
@@ -74,8 +83,8 @@ class asset_performance:
         
         cdf_empirical = self.__ecdf__(self.real_sample)
         
-        u_x = np.linspace(min(self.real_sample), max(self.real_sample), 90)
-        u_y = stats.norm.cdf(u_x, self.mean_log_return, self.vola)
+        u_x = np.linspace(min(self.real_sample), max(self.real_sample), self.dict_quick_stats["observation period (days)"])
+        u_y = stats.norm.cdf(u_x, self.mean, self.std)
         cdf_theoretical = [u_x,u_y]
 
         plt.plot(cdf_empirical[0],cdf_empirical[1])
@@ -98,7 +107,7 @@ class asset_performance:
         #add bell curve
         xmin, xmax = plt.xlim()
         x = np.linspace(xmin,xmax,100)
-        p = stats.norm.pdf(x, self.mean_log_return,self.vola)
+        p = stats.norm.pdf(x, self.mean,self.std)
 
         plt.subplot(121).plot(x, p, 'k', linewidth=0.5)
         plt.subplot(122).plot(x, p, 'k', linewidth=0.5)
@@ -110,18 +119,18 @@ class asset_performance:
     def VaR_backtesting(self):
         tail_size = self.period * 0.01
         theo_VaR_sample = np.percentile(self.theo_sample, 0.01)
-        theo_VaR_pdf = stats.norm.ppf(0.01, loc = self.mean_log_return, scale = self.vola)
+        theo_VaR_pdf = stats.norm.ppf(0.01, loc = self.mean, scale = self.std)
         real_VaR = np.percentile(self.real_sample, 0.01)
 
         li_behind_VaR_theo = self.real_sample[self.real_sample < theo_VaR_pdf]
         li_behind_VaR_real = self.real_sample[self.real_sample < real_VaR]
 
-        print(tail_size)
-        print(li_behind_VaR_theo)
-        print(li_behind_VaR_real)
-        print(theo_VaR_pdf)
-        print(theo_VaR_sample)
-        print(real_VaR)
+        # print(tail_size)
+        # print(li_behind_VaR_theo)
+        # print(li_behind_VaR_real)
+        # print(theo_VaR_pdf)
+        # print(theo_VaR_sample)
+        # print(real_VaR)
 
     def ACF_plot(self):
         
