@@ -9,6 +9,8 @@ from PIL import Image
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.distributions.empirical_distribution import ECDF
 
+#TODO need to agree on the order of the time-series and/or implement the checks
+
 class asset_performance:
     
     #TODO add optional tickers for references, like broad and narrow market + interest rate
@@ -20,7 +22,6 @@ class asset_performance:
         self.download_data_for_a_ticker()
         self.compute_log_returns()
         self.compute_stats()
-        # self.generate_reference_distribution()
         self.__fit_to_distributions__()
 
     def download_data_for_a_ticker(self):
@@ -58,9 +59,6 @@ class asset_performance:
         self.std = std
 
         print(self.dict_quick_stats)
-
-    #def generate_reference_distribution(self):
-    #    np.random.normal(self.dict_quick_stats[{'mean'}])
 
     def __fit_to_distributions__(self):
         
@@ -154,21 +152,34 @@ class asset_performance:
 
         plt.savefig("MA.png")
 
-    # def rsi(self):
+    def rsi(self):
 
-        # loc_df_prices = self.df_prices.sort_index(ascending=True)
+        df_diffs = self.df_prices.sort_index(ascending=True).diff()
 
-        # df_gains = loc_df_prices.where(df_returns>0,0).rolling(window = 14).mean()
-        # df_loss = df_returns.where(df_returns<0,0).abs().rolling(window = 14).mean()
+        df_gains = (df_diffs.where(df_diffs>0,0)).rolling(window = 14).mean()
+        df_loss = (df_diffs.where(df_diffs<0,0).abs()).rolling(window = 14).mean()
 
-        # rsi = 100 - (100/(1+df_gains/df_loss))
-        # rsi.dropna(inplace=True)
+        rsi = 100 - (100/(1+df_gains/df_loss))
+        
+        plt.subplot(121).plot(self.df_prices)
+        plt.subplot(121).plot(rsi)
 
-    # def vwap(self):
-        # pass
+        plt.savefig("RSI.png")
 
-# df_check = asset_performance("ADSK")
-# df_check.moving_average()
+    def vwap(self):
+        
+        li_vwap = []
+
+        for i in range(0,self.dict_quick_stats['observation period (days)']):
+            p = self.df_prices.iloc[i:i+29].values
+            q = self.df_volumes.iloc[i:i+29].values
+            pq = p*q
+            vwap = pq/(q.sum())
+
+            li_vwap = li_vwap.append(vwap)
+
+        print(li_vwap)
 
 
-
+df_check = asset_performance("ADSK")
+df_check.vwap()
