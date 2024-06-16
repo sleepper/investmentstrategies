@@ -168,18 +168,20 @@ class asset_performance:
 
     def vwap(self):
         
-        li_vwap = []
-
-        for i in range(0,self.dict_quick_stats['observation period (days)']):
-            p = self.df_prices.iloc[i:i+29].values
-            q = self.df_volumes.iloc[i:i+29].values
-            pq = p*q
-            vwap = pq/(q.sum())
-
-            li_vwap = li_vwap.append(vwap)
-
-        print(li_vwap)
-
+        self.df_vwap = pd.merge(self.df_prices,self.df_volumes,left_index=True, right_index=True, how='left')
+        self.df_vwap.columns = ['p','q']
+        n = self.dict_quick_stats['observation period (days)']
+        vwap_range = 30
+        self.df_vwap['vwap'] = None
+        
+        for i in range(0,n-vwap_range+1):
+            
+            df_temp = self.df_vwap.iloc[i:i+vwap_range]
+            df_temp['weights'] = df_temp.q / df_temp.q.sum()
+            vwap = (df_temp.p * df_temp.weights).sum()
+            self.df_vwap['vwap'].iloc[i] = vwap
+        
+        # self.df_vwap.to_excel('vwap.xlsx')
 
 df_check = asset_performance("ADSK")
-df_check.vwap()
+print(df_check.df_vwap)
