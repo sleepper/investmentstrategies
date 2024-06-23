@@ -72,7 +72,7 @@ class asset_performance:
         stats.probplot(self.real_sample, dist="norm", plot=plt.subplot(121))
         stats.probplot(self.theo_sample, dist="norm", plot=plt.subplot(122))
         
-        plt.savefig('qq plot.png')
+        plt.savefig('charts/qq plot.png')
         plt.clf()
     
     def __ecdf__(self, data):
@@ -94,7 +94,7 @@ class asset_performance:
         plt.plot(cdf_empirical[0],cdf_empirical[1])
         plt.plot(cdf_theoretical[0],cdf_theoretical[1])
         
-        plt.savefig("ecdf plot.png")
+        plt.savefig("charts/ecdf plot.png")
 
     def VaR_plot(self):
         
@@ -116,7 +116,7 @@ class asset_performance:
         plt.subplot(121).plot(x, p, 'k', linewidth=0.5)
         plt.subplot(122).plot(x, p, 'k', linewidth=0.5)
 
-        plt.savefig('VaR plot.png')
+        plt.savefig('charts/VaR plot.png')
         plt.clf()
 
     # at 99%
@@ -129,16 +129,9 @@ class asset_performance:
         li_behind_VaR_theo = self.real_sample[self.real_sample < theo_VaR_pdf]
         li_behind_VaR_real = self.real_sample[self.real_sample < real_VaR]
 
-        # print(tail_size)
-        # print(li_behind_VaR_theo)
-        # print(li_behind_VaR_real)
-        # print(theo_VaR_pdf)
-        # print(theo_VaR_sample)
-        # print(real_VaR)
-
     def ACF_plot(self):
         
-        plot_acf(self.log_returns).savefig('ACF plot.png')
+        plot_acf(self.log_returns).savefig('charts/ACF plot.png')
 
     def moving_average(self):
         
@@ -150,7 +143,7 @@ class asset_performance:
         plt.subplot(121).plot(loc_df_prices.ewm(span=30, adjust=False).mean())
         plt.subplot(122).plot(loc_df_volumes)
 
-        plt.savefig("MA.png")
+        plt.savefig("charts/MA.png")
 
     def rsi(self):
 
@@ -164,7 +157,7 @@ class asset_performance:
         plt.subplot(121).plot(self.df_prices)
         plt.subplot(121).plot(rsi)
 
-        plt.savefig("RSI.png")
+        plt.savefig("charts/RSI.png")
 
     def vwap(self):
         
@@ -181,7 +174,7 @@ class asset_performance:
             vwap = (df_temp.p * df_temp.weights).sum()
             self.df_vwap['vwap'].iloc[i] = vwap
         
-        self.df_vwap.to_excel('vwap.xlsx')
+        self.df_vwap.to_excel('xlsx/vwap.xlsx')
 
     def adtv(self):
         
@@ -201,14 +194,31 @@ class asset_performance:
             df_temp = self.df_vwap.iloc[i:i+n2]
             self.df_vwap['adtv90d'].iloc[i] = df_temp.q.mean()
         
-        self.df_vwap.to_excel('vwap.xlsx')
+        self.df_vwap.to_excel('xlsx/vwap.xlsx')
 
     def vola_clustering(self):
         
         self.df_vwap['vola'] = self.log_returns.sort_index(ascending=True).rolling(window=30).std() * ((252/30) ** 0.5)
-        self.df_vwap.to_excel('vwap.xlsx')
+        self.df_vwap.to_excel('xlsx/vwap.xlsx')
+
+    def obv(self): #does not work, rewrite as returns and volumes
+
+        obv = [0]
+        n = self.dict_quick_stats['observation period (days)']
+
+        for i in range(1, n):
+            if self.df_prices.iloc[i] > self.df_prices.iloc[i-1]:
+                obv.append(obv[-1] + self.df_volumes.iloc[i])
+            elif self.df_prices.iloc[i] < self.df_prices.iloc[i-1]:
+                obv.append(obv[-1] - self.df_volumes.iloc[i])
+            else:
+                obv.append(obv[-1])
+        
+        self.df_vwap['obv'] = obv
+        self.df_vwap.to_excel('xlsx/vwap.xlsx')
 
 df_check = asset_performance("ADSK")
 df_check.vwap()
 df_check.adtv()
 df_check.vola_clustering()
+df_check.obv()
