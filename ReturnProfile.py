@@ -181,7 +181,34 @@ class asset_performance:
             vwap = (df_temp.p * df_temp.weights).sum()
             self.df_vwap['vwap'].iloc[i] = vwap
         
-        # self.df_vwap.to_excel('vwap.xlsx')
+        self.df_vwap.to_excel('vwap.xlsx')
+
+    def adtv(self):
+        
+        self.df_vwap['adtv30d'] = None
+        self.df_vwap['adtv90d'] = None
+        n1 = 30
+        n2 = 90
+        n = self.dict_quick_stats['observation period (days)']
+
+        for i in range(0,n-n1+1):
+            
+            df_temp = self.df_vwap.iloc[i:i+n1]
+            self.df_vwap['adtv30d'].iloc[i] = df_temp.q.mean()
+
+        for i in range(0,n-n2+1):
+            
+            df_temp = self.df_vwap.iloc[i:i+n2]
+            self.df_vwap['adtv90d'].iloc[i] = df_temp.q.mean()
+        
+        self.df_vwap.to_excel('vwap.xlsx')
+
+    def vola_clustering(self):
+        
+        self.df_vwap['vola'] = self.log_returns.sort_index(ascending=True).rolling(window=30).std() * ((252/30) ** 0.5)
+        self.df_vwap.to_excel('vwap.xlsx')
 
 df_check = asset_performance("ADSK")
-print(df_check.df_vwap)
+df_check.vwap()
+df_check.adtv()
+df_check.vola_clustering()
