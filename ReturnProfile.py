@@ -16,13 +16,25 @@ class asset_performance:
     #TODO add optional tickers for references, like broad and narrow market + interest rate
 
     def __init__(self, ticker):
-        self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
+        
+        #self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
+        self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
         self.period = 252
         self.ticker = ticker
+        
+        lst_columns=['close','volume','log_return','vola30d','vola90d','vwap30d','vwap90d','adtv30','adtv90','rsi','obv','ma30d','ma90d','ewm']
+        self.df_analysis = pd.DataFrame(columns=lst_columns)
+        
         self.download_data_for_a_ticker()
         self.compute_log_returns()
+        
         self.compute_stats()
-        self.__fit_to_distributions__()
+        
+        #self.__fit_to_distributions__()
+        self.compute_moving_average()
+        self.compute_rsi()
+        self.compute_vwap()
+        self.compute_adtv()
 
     def download_data_for_a_ticker(self):
         
@@ -30,20 +42,139 @@ class asset_performance:
         df_temp = df_temp.set_index('date')
         
         # there is more data, adjClose is a starter
-        df_prices = df_temp[['adjClose']]
-        df_prices.rename(columns={'adjClose': self.ticker}, inplace=True)
-        self.df_prices = df_prices
+        self.df_analysis['close'] = df_temp[['adjClose']]
+        self.df_analysis['volume'] = df_temp[['volume']]
 
-        df_volumes = df_temp[['volume']]
-        self.df_volumes = df_volumes
-
+        del df_temp
     
     def compute_log_returns(self):
-        df_temp = -(self.df_prices.shift(0).apply(np.log) - self.df_prices.shift(1).apply(np.log)) #idk why I have to put a minus in front
-        self.log_returns = df_temp.shift(-1).dropna()
+
+        df_temp = pd.DataFrame(columns=['p(t-0)','p(t-1)','diff','return','log_return'])
+        
+        df_temp['p(t-0)'] = self.df_analysis['close'].shift(0)
+        df_temp['p(t-1)'] = self.df_analysis['close'].shift(-1)
+        df_temp['diff'] = df_temp['p(t-0)'] - df_temp['p(t-1)']
+        df_temp['return'] = df_temp['diff'] / df_temp['p(t-1)']
+        df_temp['log_return'] = df_temp['p(t-0)'].apply(np.log) - df_temp['p(t-1)'].apply(np.log)
+
+        self.df_analysis['log_return'] = df_temp['log_return']
+
+        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
+
+        del df_temp
+
+    def compute_moving_average(self):
+        
+        df_temp = pd.DataFrame(columns=['close','ma30d','ma90d'])
+
+        df_temp['close'] = self.df_analysis['close'].sort_index(ascending=True) # is sensitive to the sorting order
+        
+        df_temp['ma30d'] = df_temp['close'].rolling(window=30).mean()
+        df_temp['ma90d'] = df_temp['close'].rolling(window=90).mean()
+        df_temp['ewm'] = df_temp['close'].ewm(span=30,adjust=False).mean()
+
+        self.df_analysis['ma30d'] = df_temp['ma30d']
+        self.df_analysis['ma90d'] = df_temp['ma90d']
+        self.df_analysis['ewm'] = df_temp['ewm']
+
+        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
+
+        del df_temp
+
+    def compute_rsi(self):
+
+        df_temp = pd.DataFrame(columns=['close','diff','gain','loss','rsi'])
+        
+        df_temp['close'] = self.df_analysis['close'].sort_index(ascending=True) # is sensitive to the sorting order
+
+        df_temp['diff'] = df_temp['close'].diff()
+
+        df_temp['gain'] = (df_temp['diff'].where(df_temp['diff']>0,0)).rolling(window = 14).mean()
+        df_temp['loss'] = (df_temp['diff'].where(df_temp['diff']<0,0)).rolling(window = 14).mean()
+
+        df_temp['rsi'] = 100 - (100/(1+df_temp['gain']/df_temp['loss']))
+
+        self.df_analysis['rsi'] = df_temp['rsi']
+
+        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
+
+        del df_temp
+        
+    #    plt.subplot(121).plot(self.df_prices)
+    #    plt.subplot(121).plot(rsi)
+
+    #    plt.savefig("charts/RSI.png")
+
+
+    #    loc_df_prices = self.df_prices.sort_index(ascending=True)
+    #    loc_df_volumes = self.df_volumes.sort_index(ascending=True)
+
+    #    plt.subplot(121).plot(loc_df_prices)
+    #    plt.subplot(121).plot(loc_df_prices.rolling(window=30).mean())
+    #    plt.subplot(121).plot(loc_df_prices.ewm(span=30, adjust=False).mean())
+    #    plt.subplot(122).plot(loc_df_volumes)
+
+    #    plt.savefig("charts/MA.png")
+
+    def compute_vwap(self):
+        
+        df_temp = pd.DataFrame(columns=['close','volume','vwap30d','vwap90d'])
+
+        df_temp['close'] = self.df_analysis['close']
+        df_temp['volume'] = self.df_analysis['volume']
+
+        n = self.dict_quick_stats['observation period (days)']
+        lst_vwap_range = [30,90]
+        
+        def func_vwap(df):
+
+            df_temp = df
+            df_temp['weights'] = df_temp['volume'] / df_temp['volume'].sum()
+            vwap = (df_temp['close'] * df_temp['weights']).sum()
+
+            return vwap
+
+        
+        for i in range(0,n-lst_vwap_range[0]+1):
+
+            df_temp['vwap30d'].iloc[i] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[0]])
+            
+        for i in range(0,n-lst_vwap_range[1]+1):
+
+            df_temp['vwap90d'].iloc[i] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[1]])
+        
+        
+        self.df_analysis['vwap30d'] = df_temp['vwap30d']
+        self.df_analysis['vwap90d'] = df_temp['vwap90d']
+
+        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
+
+        del df_temp
+
+    def compute_adtv(self):
+        
+        df_temp = pd.DataFrame(columns=['volume','adtv30d','adtv90d'])
+
+        df_temp['volume'] = self.df_analysis['volume'].sort_index(ascending=True) # is sensitive to the sorting order
+
+        df_temp['adtv30d'] = df_temp['volume'].rolling(window=30).mean()
+        df_temp['adtv90d'] = df_temp['volume'].rolling(window=90).mean()
+
+        self.df_analysis['adtv30d'] = df_temp['adtv30d']
+        self.df_analysis['adtv90d'] = df_temp['adtv90d']
+        
+        self.df_analysis.to_excel('xlsx/analysis.xlsx')
+
+        df_temp.to_excel('xlsx/temp.xlsx')
+
+        del df_temp
 
     def compute_stats(self):
-        df_temp = self.log_returns.iloc[0:self.period-1]
+        
+        df_temp = pd.DataFrame(columns=['log_return'])
+
+        df_temp['log_return'] = self.df_analysis['log_return'].iloc[0:self.period-1]
+        
         mean = df_temp.mean()
         std = df_temp.std()
         ann_period = 252
@@ -133,18 +264,6 @@ class asset_performance:
         
         plot_acf(self.log_returns).savefig('charts/ACF plot.png')
 
-    def moving_average(self):
-        
-        loc_df_prices = self.df_prices.sort_index(ascending=True)
-        loc_df_volumes = self.df_volumes.sort_index(ascending=True)
-
-        plt.subplot(121).plot(loc_df_prices)
-        plt.subplot(121).plot(loc_df_prices.rolling(window=30).mean())
-        plt.subplot(121).plot(loc_df_prices.ewm(span=30, adjust=False).mean())
-        plt.subplot(122).plot(loc_df_volumes)
-
-        plt.savefig("charts/MA.png")
-
     def rsi(self):
 
         df_diffs = self.df_prices.sort_index(ascending=True).diff()
@@ -217,8 +336,4 @@ class asset_performance:
         self.df_vwap['obv'] = obv
         self.df_vwap.to_excel('xlsx/vwap.xlsx')
 
-df_check = asset_performance("ADSK")
-df_check.vwap()
-df_check.adtv()
-df_check.vola_clustering()
-df_check.obv()
+df_check = asset_performance("ADBE")
