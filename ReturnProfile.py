@@ -22,9 +22,16 @@ class asset_performance:
         self.period = 252
         self.ticker = ticker
         
-        lst_columns=['close','volume','log_return','vola30d','vola90d','vwap30d','vwap90d','adtv30','adtv90','rsi','obv','ma30d','ma90d','ewm']
+        lst_columns=['close','volume','log_return','vola30d','vola90d','vwap30d','vwap90d','adtv30d','adtv90d','rsi','obv','obv30d','obv90d','ma30d','ma90d','ewm']
         self.df_analysis = pd.DataFrame(columns=lst_columns)
         
+        del lst_columns
+
+        lst_columns=['date','close','log_return','rank_asc','rank_des']
+        self.df_stats = pd.DataFrame(columns=lst_columns)
+
+        del lst_columns
+
         self.download_data_for_a_ticker()
         self.compute_log_returns()
         
@@ -35,6 +42,10 @@ class asset_performance:
         self.compute_rsi()
         self.compute_vwap()
         self.compute_adtv()
+        self.compute_obv()
+        self.compute_vola()
+        self.sort_prices()
+        self.commpute_order_statistics()
 
     def download_data_for_a_ticker(self):
         
@@ -163,9 +174,7 @@ class asset_performance:
         self.df_analysis['adtv30d'] = df_temp['adtv30d']
         self.df_analysis['adtv90d'] = df_temp['adtv90d']
         
-        self.df_analysis.to_excel('xlsx/analysis.xlsx')
-
-        df_temp.to_excel('xlsx/temp.xlsx')
+        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
 
         del df_temp
 
@@ -190,6 +199,98 @@ class asset_performance:
         self.std = std
 
         print(self.dict_quick_stats)
+
+    def compute_obv(self): #does not work, rewrite as returns and volumes
+
+        df_temp = pd.DataFrame(columns=['close','volume','log_return'])
+        
+        df_temp['close'] = self.df_analysis['close']
+        df_temp['volume'] = self.df_analysis['volume']
+        df_temp['log_return'] = self.df_analysis['log_return']
+
+        df_temp['sign'] = (df_temp['log_return'] >= 0).replace({True:1, False:-1})
+        
+        df_temp['obv'] = df_temp['volume'] * df_temp['sign']
+        
+        df_temp.sort_index(ascending=True, inplace=True)
+
+        df_temp['obv30d'] = df_temp['obv'].rolling(window=30).sum()
+        df_temp['obv90d'] = df_temp['obv'].rolling(window=90).sum()
+
+        self.df_analysis['obv'] = df_temp['obv']
+        self.df_analysis['obv30d'] = df_temp['obv30d']
+        self.df_analysis['obv90d'] = df_temp['obv90d']
+        
+        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
+        
+        del df_temp
+
+    def compute_vola(self):
+        
+        df_temp = pd.DataFrame(columns=['close','log_return','std30d','std90d','factor30d','factor90d','vola30d','vola90d'])
+
+        df_temp['close'] = self.df_analysis['close']
+        df_temp['log_return'] = self.df_analysis['log_return']
+
+        df_temp.sort_index(ascending=True,inplace=True)
+
+        df_temp['std30d'] = df_temp['log_return'].rolling(window=30).std()
+        df_temp['std90d'] = df_temp['log_return'].rolling(window=90).std()
+
+        df_temp['factor30d'] = (252/30) ** 0.5
+        df_temp['factor90d'] = (252/90) ** 0.5
+
+        df_temp['vola30d'] = df_temp['std30d'] * df_temp['factor30d']
+        df_temp['vola90d'] = df_temp['std90d'] * df_temp['factor90d']
+
+        self.df_analysis['vola30d'] = df_temp['vola30d']
+        self.df_analysis['vola90d'] = df_temp['vola90d']
+
+        self.df_analysis.to_excel('xlsx/analysis.xlsx')
+
+        del df_temp
+
+    def sort_prices(self):
+
+        df_temp = pd.DataFrame(columns=['close','log_return','rank_asc','rank_des'])
+
+        df_temp['log_return'] = self.df_analysis['log_return'].dropna()
+        df_temp['close'] = self.df_analysis['close']
+
+        df_temp.sort_values(by='log_return', inplace=True)
+        
+        n = len(df_temp)
+        
+        df_temp['rank_asc'] = range(1,n+1,1)
+        df_temp['rank_des'] = range(n+1,1,-1)
+
+        df_temp.reset_index(drop=False, inplace=True)
+        df_temp.set_index(df_temp['rank_asc'], inplace=True)
+
+        self.df_stats = df_temp
+
+        #self.df_stats.to_excel('xlsx/stats.xlsx')
+
+        del df_temp
+        
+    def commpute_order_statistics(self):
+        
+        df_temp = self.df_stats
+
+        def bin_round(number): #atempt to generate comparable bins
+            
+            nearest_multiple = round(number / 0.0025) * 0.0025
+            rounded_number = round(nearest_multiple, 3)
+            
+            return rounded_number
+
+        df_temp['bin'] = df_temp['log_return'].map(lambda x: bin_round(x))
+
+        self.df_stats['bin'] = df_temp['bin']
+        
+        self.df_stats.to_excel("xlsx/overview.xlsx")
+
+        del df_temp
 
     def __fit_to_distributions__(self):
         
@@ -263,77 +364,5 @@ class asset_performance:
     def ACF_plot(self):
         
         plot_acf(self.log_returns).savefig('charts/ACF plot.png')
-
-    def rsi(self):
-
-        df_diffs = self.df_prices.sort_index(ascending=True).diff()
-
-        df_gains = (df_diffs.where(df_diffs>0,0)).rolling(window = 14).mean()
-        df_loss = (df_diffs.where(df_diffs<0,0).abs()).rolling(window = 14).mean()
-
-        rsi = 100 - (100/(1+df_gains/df_loss))
-        
-        plt.subplot(121).plot(self.df_prices)
-        plt.subplot(121).plot(rsi)
-
-        plt.savefig("charts/RSI.png")
-
-    def vwap(self):
-        
-        self.df_vwap = pd.merge(self.df_prices,self.df_volumes,left_index=True, right_index=True, how='left')
-        self.df_vwap.columns = ['p','q']
-        n = self.dict_quick_stats['observation period (days)']
-        vwap_range = 30
-        self.df_vwap['vwap'] = None
-        
-        for i in range(0,n-vwap_range+1):
-            
-            df_temp = self.df_vwap.iloc[i:i+vwap_range]
-            df_temp['weights'] = df_temp.q / df_temp.q.sum()
-            vwap = (df_temp.p * df_temp.weights).sum()
-            self.df_vwap['vwap'].iloc[i] = vwap
-        
-        self.df_vwap.to_excel('xlsx/vwap.xlsx')
-
-    def adtv(self):
-        
-        self.df_vwap['adtv30d'] = None
-        self.df_vwap['adtv90d'] = None
-        n1 = 30
-        n2 = 90
-        n = self.dict_quick_stats['observation period (days)']
-
-        for i in range(0,n-n1+1):
-            
-            df_temp = self.df_vwap.iloc[i:i+n1]
-            self.df_vwap['adtv30d'].iloc[i] = df_temp.q.mean()
-
-        for i in range(0,n-n2+1):
-            
-            df_temp = self.df_vwap.iloc[i:i+n2]
-            self.df_vwap['adtv90d'].iloc[i] = df_temp.q.mean()
-        
-        self.df_vwap.to_excel('xlsx/vwap.xlsx')
-
-    def vola_clustering(self):
-        
-        self.df_vwap['vola'] = self.log_returns.sort_index(ascending=True).rolling(window=30).std() * ((252/30) ** 0.5)
-        self.df_vwap.to_excel('xlsx/vwap.xlsx')
-
-    def obv(self): #does not work, rewrite as returns and volumes
-
-        obv = [0]
-        n = self.dict_quick_stats['observation period (days)']
-
-        for i in range(1, n):
-            if self.df_prices.iloc[i] > self.df_prices.iloc[i-1]:
-                obv.append(obv[-1] + self.df_volumes.iloc[i])
-            elif self.df_prices.iloc[i] < self.df_prices.iloc[i-1]:
-                obv.append(obv[-1] - self.df_volumes.iloc[i])
-            else:
-                obv.append(obv[-1])
-        
-        self.df_vwap['obv'] = obv
-        self.df_vwap.to_excel('xlsx/vwap.xlsx')
 
 df_check = asset_performance("ADBE")
