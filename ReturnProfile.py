@@ -27,7 +27,7 @@ class asset_performance:
         
         del lst_columns
 
-        lst_columns=['date','close','log_return','rank_asc','rank_des']
+        lst_columns=['date','close','log_return','rank_asc','rank_des','cdf']
         self.df_stats = pd.DataFrame(columns=lst_columns)
 
         del lst_columns
@@ -46,6 +46,8 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
+        self.save_xlsx()
+
 
     def download_data_for_a_ticker(self):
         
@@ -149,6 +151,7 @@ class asset_performance:
         for i in range(0,n-lst_vwap_range[0]+1):
 
             df_temp['vwap30d'].iloc[i] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[0]])
+            #df_temp.loc[i,'vwap30d'] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[0]])
             
         for i in range(0,n-lst_vwap_range[1]+1):
 
@@ -285,10 +288,28 @@ class asset_performance:
             return rounded_number
 
         df_temp['bin'] = df_temp['log_return'].map(lambda x: bin_round(x))
-
         self.df_stats['bin'] = df_temp['bin']
+
+        n = len(df_temp)
+
+        df_temp['cdf'] = [x * (1/(n+1)) for x in range(1,n+1,1)]
+        self.df_stats['cdf'] = df_temp['cdf']
         
-        self.df_stats.to_excel("xlsx/overview.xlsx")
+        min_bin = df_temp['bin'].min()
+        max_bin = df_temp['bin'].max()
+        tick = 0.0025
+
+        df_pdf = pd.DataFrame(columns=['bins'])
+        df_pdf['bins'] = np.arange(min_bin,max_bin,tick)
+        df_pdf.set_index('bins', inplace=True)
+
+        df_pivot = pd.pivot_table(df_temp, values=['date'], columns=['bin'], aggfunc='count').T
+
+        df_pdf1 = pd.merge(df_pdf,df_pivot,left_index=True,right_index=True)
+
+        df_temp.to_excel('xlsx/temp.xlsx')
+        df_pdf.to_excel('xlsx/pdf.xlsx')
+        df_pivot.to_excel('xlsx/pivot.xlsx')
 
         del df_temp
 
@@ -364,5 +385,10 @@ class asset_performance:
     def ACF_plot(self):
         
         plot_acf(self.log_returns).savefig('charts/ACF plot.png')
+
+    def save_xlsx(self):
+
+        self.df_analysis.to_excel('xlsx/analysis.xlsx')
+        self.df_stats.to_excel('xlsx/stats.xlsx')
 
 df_check = asset_performance("ADBE")
