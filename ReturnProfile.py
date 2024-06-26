@@ -298,20 +298,23 @@ class asset_performance:
         min_bin = df_temp['bin'].min()
         max_bin = df_temp['bin'].max()
         tick = 0.0025
+        n_bins = int((max_bin-min_bin)/tick)+1
 
-        df_pdf = pd.DataFrame(columns=['bins'])
-        df_pdf['bins'] = np.arange(min_bin,max_bin,tick)
-        df_pdf.set_index('bins', inplace=True)
+        lst_bins = [] #list(np.arange(min_bin,max_bin,tick))
+
+        for i in range(0,n_bins):
+
+            lst_bins.append(round((min_bin + i * tick),5))
 
         df_pivot = pd.pivot_table(df_temp, values=['date'], columns=['bin'], aggfunc='count').T
+        
+        df_pdf = pd.DataFrame(index=lst_bins)
+        df_pdf = pd.merge(df_pdf,df_pivot,left_index=True,right_index=True,how='left')
+        df_pdf.fillna(0,inplace=True)
 
-        df_pdf1 = pd.merge(df_pdf,df_pivot,left_index=True,right_index=True)
+        self.df_pdf = df_pdf
 
-        df_temp.to_excel('xlsx/temp.xlsx')
-        df_pdf.to_excel('xlsx/pdf.xlsx')
-        df_pivot.to_excel('xlsx/pivot.xlsx')
-
-        del df_temp
+        del df_temp, df_pdf, df_pivot
 
     def __fit_to_distributions__(self):
         
@@ -390,5 +393,6 @@ class asset_performance:
 
         self.df_analysis.to_excel('xlsx/analysis.xlsx')
         self.df_stats.to_excel('xlsx/stats.xlsx')
+        self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
 df_check = asset_performance("ADBE")
