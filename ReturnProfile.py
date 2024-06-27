@@ -46,8 +46,8 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
+        self.add_distributions()
         self.save_xlsx()
-
 
     def download_data_for_a_ticker(self):
         
@@ -292,8 +292,8 @@ class asset_performance:
 
         n = len(df_temp)
 
-        df_temp['cdf'] = [x * (1/(n+1)) for x in range(1,n+1,1)]
-        self.df_stats['cdf'] = df_temp['cdf']
+        df_temp['ecdf'] = [x * (1/(n)) for x in range(1,n+1,1)]
+        self.df_stats['ecdf'] = df_temp['ecdf']
         
         min_bin = df_temp['bin'].min()
         max_bin = df_temp['bin'].max()
@@ -315,6 +315,15 @@ class asset_performance:
         self.df_pdf = df_pdf
 
         del df_temp, df_pdf, df_pivot
+
+    def add_distributions(self):
+
+        mean = self.dict_quick_stats['mean']
+        scale = self.dict_quick_stats['std']
+        size = self.dict_quick_stats['observation period (days)']
+        
+        sample_normal = np.random.normal(loc=mean, scale=scale,size=size)
+        
 
     def __fit_to_distributions__(self):
         
