@@ -321,9 +321,18 @@ class asset_performance:
         mean = self.dict_quick_stats['mean']
         scale = self.dict_quick_stats['std']
         size = self.dict_quick_stats['observation period (days)']
+
+        lst_index = list(range(1,size+1))
+
+        df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
+
+        rvs = stats.norm(loc=mean, scale=scale)
+        lst_sample = list(rvs.rvs(size=size))     
+        df_temp['norm_sample'] = sorted(lst_sample)
         
-        sample_normal = np.random.normal(loc=mean, scale=scale,size=size)
+        self.df_stats['norm_sample'] = df_temp['norm_sample']
         
+        del df_temp,mean, scale,size, lst_index,lst_sample, rvs
 
     def __fit_to_distributions__(self):
         
