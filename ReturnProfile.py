@@ -17,8 +17,8 @@ class asset_performance:
 
     def __init__(self, ticker):
         
-        #self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
-        self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
+        self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
+        #self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
         self.period = 252
         self.ticker = ticker
         
@@ -323,23 +323,27 @@ class asset_performance:
         size = self.dict_quick_stats['observation period (days)']
 
         lst_index = list(range(1,size+1))
-
         df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
 
-        rvs = stats.norm(loc=mean, scale=scale)
-        lst_sample = list(rvs.rvs(size=size))     
-        df_temp['norm_sample'] = sorted(lst_sample)
+        rvs_pdf = stats.norm(loc=mean, scale=scale)
+        lst_sample = sorted(list(rvs_pdf.rvs(size=size)))
         
-        self.df_stats['norm_sample'] = df_temp['norm_sample']
-        
-        del df_temp,mean, scale,size, lst_index,lst_sample, rvs
+        #rvs_cdf = stats.norm.cdf(lst_sample, mean, scale)
 
-    def __fit_to_distributions__(self):
+        df_temp['norm_sample'] = lst_sample
+        #df_temp['norm_cdf'] = list(rvs_cdf)
+
+        self.df_stats['norm_sample'] = df_temp['norm_sample']
+        #self.df_stats['norm_cdf'] = df_temp['norm_cdf']
         
-        rvs = stats.norm(loc=self.mean, scale=self.std)
-        n = len(self.log_returns)
-        self.theo_sample = rvs.rvs(size=n)
-        self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
+        del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf, rvs_cdf
+
+    # def __fit_to_distributions__(self):
+        
+    #     rvs = stats.norm(loc=self.mean, scale=self.std)
+    #     n = len(self.log_returns)
+    #     self.theo_sample = rvs.rvs(size=n)
+    #     self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
 
     def QQ_plot(self):
         
@@ -349,26 +353,26 @@ class asset_performance:
         plt.savefig('charts/qq plot.png')
         plt.clf()
     
-    def __ecdf__(self, data):
+    # def __ecdf__(self, data):
 
-        u_x = np.sort(data)
-        n = len(u_x)
-        u_y = np.arange(1, n + 1) / n
-        return u_x, u_y
+    #     u_x = np.sort(data)
+    #     n = len(u_x)
+    #     u_y = np.arange(1, n + 1) / n
+    #     return u_x, u_y
         
     ### TODO:looks wrong to me
-    def ECDF_plot(self):
+    # def ECDF_plot(self):
         
-        cdf_empirical = self.__ecdf__(self.real_sample)
+    #     cdf_empirical = self.__ecdf__(self.real_sample)
         
-        u_x = np.linspace(min(self.real_sample), max(self.real_sample), self.dict_quick_stats["observation period (days)"])
-        u_y = stats.norm.cdf(u_x, self.mean, self.std)
-        cdf_theoretical = [u_x,u_y]
+    #     u_x = np.linspace(min(self.real_sample), max(self.real_sample), self.dict_quick_stats["observation period (days)"])
+    #     u_y = stats.norm.cdf(u_x, self.mean, self.std)
+    #     cdf_theoretical = [u_x,u_y]
 
-        plt.plot(cdf_empirical[0],cdf_empirical[1])
-        plt.plot(cdf_theoretical[0],cdf_theoretical[1])
+    #     plt.plot(cdf_empirical[0],cdf_empirical[1])
+    #     plt.plot(cdf_theoretical[0],cdf_theoretical[1])
         
-        plt.savefig("charts/ecdf plot.png")
+    #     plt.savefig("charts/ecdf plot.png")
 
     def VaR_plot(self):
         
