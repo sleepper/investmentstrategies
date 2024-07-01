@@ -280,6 +280,7 @@ class asset_performance:
         
         df_temp = self.df_stats
 
+        # add bins
         def bin_round(number): #atempt to generate comparable bins
             
             nearest_multiple = round(number / 0.0025) * 0.0025
@@ -290,17 +291,34 @@ class asset_performance:
         df_temp['bin'] = df_temp['log_return'].map(lambda x: bin_round(x))
         self.df_stats['bin'] = df_temp['bin']
 
+        # add percentile (which is )
         n = len(df_temp)
+        df_temp['percentile'] = df_temp['rank_asc'].map(lambda x: x/(n+1))
+        self.df_stats['percentile'] = df_temp['percentile']
 
+        # add ecdf
+        n = len(df_temp)
         df_temp['ecdf'] = [x * (1/(n)) for x in range(1,n+1,1)]
         self.df_stats['ecdf'] = df_temp['ecdf']
         
+        # add z-score
+        mean = self.dict_quick_stats['mean']
+        scale = self.dict_quick_stats['std']
+
+        df_temp['z_score'] = df_temp['log_return'].apply(lambda x: (x-mean)/scale)
+        self.df_stats['z_score'] = df_temp['z_score']
+
+        # add theoretical percentile
+        df_temp['theo_percentile'] = df_temp['z_score'].apply(lambda x: stats.norm.cdf(x))
+        self.df_stats['theo_percentile'] = df_temp['theo_percentile']
+
+        # add bins
         min_bin = df_temp['bin'].min()
         max_bin = df_temp['bin'].max()
         tick = 0.0025
         n_bins = int((max_bin-min_bin)/tick)+1
 
-        lst_bins = [] #list(np.arange(min_bin,max_bin,tick))
+        lst_bins = []
 
         for i in range(0,n_bins):
 
@@ -308,6 +326,7 @@ class asset_performance:
 
         df_pivot = pd.pivot_table(df_temp, values=['date'], columns=['bin'], aggfunc='count').T
         
+        # save data with bins in a separate dataframe
         df_pdf = pd.DataFrame(index=lst_bins)
         df_pdf = pd.merge(df_pdf,df_pivot,left_index=True,right_index=True,how='left')
         df_pdf.fillna(0,inplace=True)
@@ -335,8 +354,8 @@ class asset_performance:
 
         self.df_stats['norm_sample'] = df_temp['norm_sample']
         #self.df_stats['norm_cdf'] = df_temp['norm_cdf']
-        
-        del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf, rvs_cdf
+
+        del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf #, rvs_cdf
 
     # def __fit_to_distributions__(self):
         
@@ -345,13 +364,13 @@ class asset_performance:
     #     self.theo_sample = rvs.rvs(size=n)
     #     self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
 
-    def QQ_plot(self):
+    # def QQ_plot(self):
         
-        stats.probplot(self.real_sample, dist="norm", plot=plt.subplot(121))
-        stats.probplot(self.theo_sample, dist="norm", plot=plt.subplot(122))
+    #     stats.probplot(self.real_sample, dist="norm", plot=plt.subplot(121))
+    #     stats.probplot(self.theo_sample, dist="norm", plot=plt.subplot(122))
         
-        plt.savefig('charts/qq plot.png')
-        plt.clf()
+    #     plt.savefig('charts/qq plot.png')
+    #     plt.clf()
     
     # def __ecdf__(self, data):
 
