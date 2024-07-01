@@ -46,7 +46,7 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
-        self.add_distributions()
+        # self.add_distributions()
         self.save_xlsx()
 
     def download_data_for_a_ticker(self):
@@ -312,6 +312,17 @@ class asset_performance:
         df_temp['theo_percentile'] = df_temp['z_score'].apply(lambda x: stats.norm.cdf(x))
         self.df_stats['theo_percentile'] = df_temp['theo_percentile']
 
+        # add a column that highlights only z-score above absolute value of 1
+        def filter_z_score(z_score, threshold):
+            temp_result = 0
+            if abs(z_score) >= threshold:
+                temp_result = z_score
+            
+            return temp_result
+
+        df_temp['significant_move'] = df_temp['z_score'].apply(lambda x: filter_z_score(x,1))
+        self.df_stats['significant_move'] = df_temp['significant_move']
+
         # add bins
         min_bin = df_temp['bin'].min()
         max_bin = df_temp['bin'].max()
@@ -335,27 +346,27 @@ class asset_performance:
 
         del df_temp, df_pdf, df_pivot
 
-    def add_distributions(self):
+    # def add_distributions(self):
 
-        mean = self.dict_quick_stats['mean']
-        scale = self.dict_quick_stats['std']
-        size = self.dict_quick_stats['observation period (days)']
+    #     mean = self.dict_quick_stats['mean']
+    #     scale = self.dict_quick_stats['std']
+    #     size = self.dict_quick_stats['observation period (days)']
 
-        lst_index = list(range(1,size+1))
-        df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
+    #     lst_index = list(range(1,size+1))
+    #     df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
 
-        rvs_pdf = stats.norm(loc=mean, scale=scale)
-        lst_sample = sorted(list(rvs_pdf.rvs(size=size)))
+    #     rvs_pdf = stats.norm(loc=mean, scale=scale)
+    #     lst_sample = sorted(list(rvs_pdf.rvs(size=size)))
         
-        #rvs_cdf = stats.norm.cdf(lst_sample, mean, scale)
+    #     #rvs_cdf = stats.norm.cdf(lst_sample, mean, scale)
 
-        df_temp['norm_sample'] = lst_sample
-        #df_temp['norm_cdf'] = list(rvs_cdf)
+    #     df_temp['norm_sample'] = lst_sample
+    #     #df_temp['norm_cdf'] = list(rvs_cdf)
 
-        self.df_stats['norm_sample'] = df_temp['norm_sample']
-        #self.df_stats['norm_cdf'] = df_temp['norm_cdf']
+    #     self.df_stats['norm_sample'] = df_temp['norm_sample']
+    #     #self.df_stats['norm_cdf'] = df_temp['norm_cdf']
 
-        del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf #, rvs_cdf
+    #     del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf #, rvs_cdf
 
     # def __fit_to_distributions__(self):
         
