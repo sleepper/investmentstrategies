@@ -334,12 +334,24 @@ class asset_performance:
         
         del df_temp,mean, scale,size, lst_index,lst_sample, rvs
 
-    def __fit_to_distributions__(self):
+    # def __fit_to_distributions__(self):
         
-        rvs = stats.norm(loc=self.mean, scale=self.std)
-        n = len(self.log_returns)
-        self.theo_sample = rvs.rvs(size=n)
-        self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
+    #     rvs = stats.norm(loc=self.mean, scale=self.std)
+    #     n = len(self.log_returns)
+    #     self.theo_sample = rvs.rvs(size=n)
+    #     self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
+
+    def prepare_a_chart(self):
+
+        fig, axs = plt.subplots(2,2,figsize=(10,8))
+
+        # price chart
+        u_x = self.df_analysis['date']
+        u_y = self.df_analysis['close']
+
+        axs[0,0].plot(u_x,u_y,'r')
+
+
 
     def QQ_plot(self):
         
@@ -413,4 +425,4 @@ class asset_performance:
         self.df_stats.to_excel('xlsx/stats.xlsx')
         self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
-df_check = asset_performance("ADBE")
+#df_check = asset_performance("ADBE")
