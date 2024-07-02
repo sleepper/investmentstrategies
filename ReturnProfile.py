@@ -308,6 +308,10 @@ class asset_performance:
         df_temp['z_score'] = df_temp['log_return'].apply(lambda x: (x-mean)/scale)
         self.df_stats['z_score'] = df_temp['z_score']
 
+        # add theoretical return
+        df_temp['theo_return'] = stats.norm.cdf(df_temp['log_return'],mean,scale)
+        self.df_stats['theo_return'] = df_temp['theo_return']
+
         # add theoretical percentile
         df_temp['theo_percentile'] = df_temp['z_score'].apply(lambda x: stats.norm.cdf(x))
         self.df_stats['theo_percentile'] = df_temp['theo_percentile']
@@ -447,4 +451,4 @@ class asset_performance:
         self.df_stats.to_excel('xlsx/stats.xlsx')
         self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
-#df_check = asset_performance("ADBE")
+df_check = asset_performance("ADBE")
