@@ -17,8 +17,8 @@ class asset_performance:
 
     def __init__(self, ticker):
         
-        self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
-        #self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
+        #self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
+        self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
         self.period = 252
         self.ticker = ticker
         
@@ -320,7 +320,7 @@ class asset_performance:
             
             return temp_result
 
-        df_temp['significant_move'] = df_temp['z_score'].apply(lambda x: filter_z_score(x,1))
+        df_temp['significant_move'] = df_temp['z_score'].apply(lambda x: filter_z_score(x,1.5))
         self.df_stats['significant_move'] = df_temp['significant_move']
 
         # add bins
