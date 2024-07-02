@@ -17,8 +17,8 @@ class asset_performance:
 
     def __init__(self, ticker):
         
-        #self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
-        self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
+        self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
+        #self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
         self.period = 252
         self.ticker = ticker
         
@@ -46,7 +46,7 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
-        self.add_distributions()
+        # self.add_distributions()
         self.save_xlsx()
 
     def download_data_for_a_ticker(self):
@@ -280,6 +280,7 @@ class asset_performance:
         
         df_temp = self.df_stats
 
+        # add bins
         def bin_round(number): #atempt to generate comparable bins
             
             nearest_multiple = round(number / 0.0025) * 0.0025
@@ -290,17 +291,45 @@ class asset_performance:
         df_temp['bin'] = df_temp['log_return'].map(lambda x: bin_round(x))
         self.df_stats['bin'] = df_temp['bin']
 
+        # add percentile (which is )
         n = len(df_temp)
+        df_temp['percentile'] = df_temp['rank_asc'].map(lambda x: x/(n+1))
+        self.df_stats['percentile'] = df_temp['percentile']
 
+        # add ecdf
+        n = len(df_temp)
         df_temp['ecdf'] = [x * (1/(n)) for x in range(1,n+1,1)]
         self.df_stats['ecdf'] = df_temp['ecdf']
         
+        # add z-score
+        mean = self.dict_quick_stats['mean']
+        scale = self.dict_quick_stats['std']
+
+        df_temp['z_score'] = df_temp['log_return'].apply(lambda x: (x-mean)/scale)
+        self.df_stats['z_score'] = df_temp['z_score']
+
+        # add theoretical percentile
+        df_temp['theo_percentile'] = df_temp['z_score'].apply(lambda x: stats.norm.cdf(x))
+        self.df_stats['theo_percentile'] = df_temp['theo_percentile']
+
+        # add a column that highlights only z-score above absolute value of 1
+        def filter_z_score(z_score, threshold):
+            temp_result = 0
+            if abs(z_score) >= threshold:
+                temp_result = z_score
+            
+            return temp_result
+
+        df_temp['significant_move'] = df_temp['z_score'].apply(lambda x: filter_z_score(x,1))
+        self.df_stats['significant_move'] = df_temp['significant_move']
+
+        # add bins
         min_bin = df_temp['bin'].min()
         max_bin = df_temp['bin'].max()
         tick = 0.0025
         n_bins = int((max_bin-min_bin)/tick)+1
 
-        lst_bins = [] #list(np.arange(min_bin,max_bin,tick))
+        lst_bins = []
 
         for i in range(0,n_bins):
 
@@ -308,6 +337,7 @@ class asset_performance:
 
         df_pivot = pd.pivot_table(df_temp, values=['date'], columns=['bin'], aggfunc='count').T
         
+        # save data with bins in a separate dataframe
         df_pdf = pd.DataFrame(index=lst_bins)
         df_pdf = pd.merge(df_pdf,df_pivot,left_index=True,right_index=True,how='left')
         df_pdf.fillna(0,inplace=True)
@@ -316,23 +346,27 @@ class asset_performance:
 
         del df_temp, df_pdf, df_pivot
 
-    def add_distributions(self):
+    # def add_distributions(self):
 
-        mean = self.dict_quick_stats['mean']
-        scale = self.dict_quick_stats['std']
-        size = self.dict_quick_stats['observation period (days)']
+    #     mean = self.dict_quick_stats['mean']
+    #     scale = self.dict_quick_stats['std']
+    #     size = self.dict_quick_stats['observation period (days)']
 
-        lst_index = list(range(1,size+1))
+    #     lst_index = list(range(1,size+1))
+    #     df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
 
-        df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
-
-        rvs = stats.norm(loc=mean, scale=scale)
-        lst_sample = list(rvs.rvs(size=size))     
-        df_temp['norm_sample'] = sorted(lst_sample)
+    #     rvs_pdf = stats.norm(loc=mean, scale=scale)
+    #     lst_sample = sorted(list(rvs_pdf.rvs(size=size)))
         
-        self.df_stats['norm_sample'] = df_temp['norm_sample']
-        
-        del df_temp,mean, scale,size, lst_index,lst_sample, rvs
+    #     #rvs_cdf = stats.norm.cdf(lst_sample, mean, scale)
+
+    #     df_temp['norm_sample'] = lst_sample
+    #     #df_temp['norm_cdf'] = list(rvs_cdf)
+
+    #     self.df_stats['norm_sample'] = df_temp['norm_sample']
+    #     #self.df_stats['norm_cdf'] = df_temp['norm_cdf']
+
+    #     del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf #, rvs_cdf
 
     # def __fit_to_distributions__(self):
         
@@ -341,46 +375,34 @@ class asset_performance:
     #     self.theo_sample = rvs.rvs(size=n)
     #     self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
 
-    def prepare_a_chart(self):
-
-        fig, axs = plt.subplots(2,2,figsize=(10,8))
-
-        # price chart
-        u_x = self.df_analysis['date']
-        u_y = self.df_analysis['close']
-
-        axs[0,0].plot(u_x,u_y,'r')
-
-
-
-    def QQ_plot(self):
+    # def QQ_plot(self):
         
-        stats.probplot(self.real_sample, dist="norm", plot=plt.subplot(121))
-        stats.probplot(self.theo_sample, dist="norm", plot=plt.subplot(122))
+    #     stats.probplot(self.real_sample, dist="norm", plot=plt.subplot(121))
+    #     stats.probplot(self.theo_sample, dist="norm", plot=plt.subplot(122))
         
-        plt.savefig('charts/qq plot.png')
-        plt.clf()
+    #     plt.savefig('charts/qq plot.png')
+    #     plt.clf()
     
-    def __ecdf__(self, data):
+    # def __ecdf__(self, data):
 
-        u_x = np.sort(data)
-        n = len(u_x)
-        u_y = np.arange(1, n + 1) / n
-        return u_x, u_y
+    #     u_x = np.sort(data)
+    #     n = len(u_x)
+    #     u_y = np.arange(1, n + 1) / n
+    #     return u_x, u_y
         
     ### TODO:looks wrong to me
-    def ECDF_plot(self):
+    # def ECDF_plot(self):
         
-        cdf_empirical = self.__ecdf__(self.real_sample)
+    #     cdf_empirical = self.__ecdf__(self.real_sample)
         
-        u_x = np.linspace(min(self.real_sample), max(self.real_sample), self.dict_quick_stats["observation period (days)"])
-        u_y = stats.norm.cdf(u_x, self.mean, self.std)
-        cdf_theoretical = [u_x,u_y]
+    #     u_x = np.linspace(min(self.real_sample), max(self.real_sample), self.dict_quick_stats["observation period (days)"])
+    #     u_y = stats.norm.cdf(u_x, self.mean, self.std)
+    #     cdf_theoretical = [u_x,u_y]
 
-        plt.plot(cdf_empirical[0],cdf_empirical[1])
-        plt.plot(cdf_theoretical[0],cdf_theoretical[1])
+    #     plt.plot(cdf_empirical[0],cdf_empirical[1])
+    #     plt.plot(cdf_theoretical[0],cdf_theoretical[1])
         
-        plt.savefig("charts/ecdf plot.png")
+    #     plt.savefig("charts/ecdf plot.png")
 
     def VaR_plot(self):
         
