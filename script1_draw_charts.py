@@ -9,7 +9,7 @@ df_tickers = pd.read_csv('Tickers.csv')
 for ind in df_tickers.index:
     
     ticker = df_tickers.iloc[ind].values[0]
-    cls_asset = asset_performance(ticker=ticker, b_from_FMP=False)
+    cls_asset = asset_performance(ticker=ticker, b_from_FMP=True)
     del cls_asset
 
 
