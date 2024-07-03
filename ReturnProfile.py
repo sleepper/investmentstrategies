@@ -8,6 +8,9 @@ import seaborn as sns
 from PIL import Image
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.distributions.empirical_distribution import ECDF
+import matplotlib.dates as mdates
+from matplotlib.font_manager import FontProperties
+
 
 #TODO need to agree on the order of the time-series and/or implement the checks
 
@@ -46,8 +49,9 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
-        # self.add_distributions()
         self.save_xlsx()
+        self.prepare_a_chart()
+
 
     def download_data_for_a_ticker(self):
         
@@ -60,6 +64,7 @@ class asset_performance:
 
         del df_temp
     
+
     def compute_log_returns(self):
 
         df_temp = pd.DataFrame(columns=['p(t-0)','p(t-1)','diff','return','log_return'])
@@ -72,9 +77,8 @@ class asset_performance:
 
         self.df_analysis['log_return'] = df_temp['log_return']
 
-        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
-
         del df_temp
+
 
     def compute_moving_average(self):
         
@@ -90,9 +94,8 @@ class asset_performance:
         self.df_analysis['ma90d'] = df_temp['ma90d']
         self.df_analysis['ewm'] = df_temp['ewm']
 
-        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
-
         del df_temp
+
 
     def compute_rsi(self):
 
@@ -109,25 +112,8 @@ class asset_performance:
 
         self.df_analysis['rsi'] = df_temp['rsi']
 
-        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
-
         del df_temp
         
-    #    plt.subplot(121).plot(self.df_prices)
-    #    plt.subplot(121).plot(rsi)
-
-    #    plt.savefig("charts/RSI.png")
-
-
-    #    loc_df_prices = self.df_prices.sort_index(ascending=True)
-    #    loc_df_volumes = self.df_volumes.sort_index(ascending=True)
-
-    #    plt.subplot(121).plot(loc_df_prices)
-    #    plt.subplot(121).plot(loc_df_prices.rolling(window=30).mean())
-    #    plt.subplot(121).plot(loc_df_prices.ewm(span=30, adjust=False).mean())
-    #    plt.subplot(122).plot(loc_df_volumes)
-
-    #    plt.savefig("charts/MA.png")
 
     def compute_vwap(self):
         
@@ -139,6 +125,7 @@ class asset_performance:
         n = self.dict_quick_stats['observation period (days)']
         lst_vwap_range = [30,90]
         
+
         def func_vwap(df):
 
             df_temp = df
@@ -161,9 +148,8 @@ class asset_performance:
         self.df_analysis['vwap30d'] = df_temp['vwap30d']
         self.df_analysis['vwap90d'] = df_temp['vwap90d']
 
-        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
-
         del df_temp
+
 
     def compute_adtv(self):
         
@@ -176,10 +162,9 @@ class asset_performance:
 
         self.df_analysis['adtv30d'] = df_temp['adtv30d']
         self.df_analysis['adtv90d'] = df_temp['adtv90d']
-        
-        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
 
         del df_temp
+
 
     def compute_stats(self):
         
@@ -203,6 +188,7 @@ class asset_performance:
 
         print(self.dict_quick_stats)
 
+
     def compute_obv(self): #does not work, rewrite as returns and volumes
 
         df_temp = pd.DataFrame(columns=['close','volume','log_return'])
@@ -224,9 +210,8 @@ class asset_performance:
         self.df_analysis['obv30d'] = df_temp['obv30d']
         self.df_analysis['obv90d'] = df_temp['obv90d']
         
-        #self.df_analysis.to_excel('xlsx/analysis.xlsx')
-        
         del df_temp
+
 
     def compute_vola(self):
         
@@ -253,6 +238,7 @@ class asset_performance:
 
         del df_temp
 
+
     def sort_prices(self):
 
         df_temp = pd.DataFrame(columns=['close','log_return','rank_asc','rank_des'])
@@ -272,10 +258,9 @@ class asset_performance:
 
         self.df_stats = df_temp
 
-        #self.df_stats.to_excel('xlsx/stats.xlsx')
-
         del df_temp
         
+
     def commpute_order_statistics(self):
         
         df_temp = self.df_stats
@@ -350,100 +335,180 @@ class asset_performance:
 
         del df_temp, df_pdf, df_pivot
 
-    # def add_distributions(self):
 
-    #     mean = self.dict_quick_stats['mean']
-    #     scale = self.dict_quick_stats['std']
-    #     size = self.dict_quick_stats['observation period (days)']
+    def prepare_a_chart(self):
 
-    #     lst_index = list(range(1,size+1))
-    #     df_temp = pd.DataFrame(columns=['norm_sample'], index=lst_index)
+        #general settings for the plot
 
-    #     rvs_pdf = stats.norm(loc=mean, scale=scale)
-    #     lst_sample = sorted(list(rvs_pdf.rvs(size=size)))
-        
-    #     #rvs_cdf = stats.norm.cdf(lst_sample, mean, scale)
+        plt.rcParams['font.family'] = 'serif'
+        plt.rcParams['font.serif'] = 'Consolas'
+        plt.rcParams['font.size'] = 8
+        plt.rcParams['axes.titlesize'] = 10  # Title font size
+        plt.rcParams['axes.labelsize'] = 8  # Axis label font size
+        plt.rcParams['xtick.labelsize'] = 8  # X-tick label font size
+        plt.rcParams['ytick.labelsize'] = 8  # Y-tick label font size
+        plt.rcParams['figure.figsize'] = [19, 12]
 
-    #     df_temp['norm_sample'] = lst_sample
-    #     #df_temp['norm_cdf'] = list(rvs_cdf)
+        plt.gcf().autofmt_xdate()
 
-    #     self.df_stats['norm_sample'] = df_temp['norm_sample']
-    #     #self.df_stats['norm_cdf'] = df_temp['norm_cdf']
+        fig, ax = plt.subplots(nrows=3, ncols=3)
 
-    #     del df_temp,mean, scale,size, lst_index,lst_sample, rvs_pdf #, rvs_cdf
+        fig.suptitle('Share price performance: ' + self.ticker, fontsize=16)
+        #plt.figure(figsize=(30,30))
 
-    # def __fit_to_distributions__(self):
-        
-    #     rvs = stats.norm(loc=self.mean, scale=self.std)
-    #     n = len(self.log_returns)
-    #     self.theo_sample = rvs.rvs(size=n)
-    #     self.real_sample = np.array(self.log_returns[self.ticker]) #without a ticker is better
+        # plot price and moving average
+        df_plot1 = self.df_analysis[['close','ma30d']].sort_index(ascending=True)
+        u_x = df_plot1.index
+        u_y1 = df_plot1.iloc[:,0]
+        u_y2 = df_plot1.iloc[:,1]
 
-    # def QQ_plot(self):
-        
-    #     stats.probplot(self.real_sample, dist="norm", plot=plt.subplot(121))
-    #     stats.probplot(self.theo_sample, dist="norm", plot=plt.subplot(122))
-        
-    #     plt.savefig('charts/qq plot.png')
-    #     plt.clf()
-    
-    # def __ecdf__(self, data):
+        ax[0,0].plot(u_y1,'r')
+        ax[0,0].plot(u_y2,'b')
+        ax[0,0].set_title('Price performance')
+        ax[0,0].xaxis.set_major_locator(mdates.MonthLocator())
+        ax[0,0].xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
 
-    #     u_x = np.sort(data)
-    #     n = len(u_x)
-    #     u_y = np.arange(1, n + 1) / n
-    #     return u_x, u_y
-        
-    ### TODO:looks wrong to me
-    # def ECDF_plot(self):
-        
-    #     cdf_empirical = self.__ecdf__(self.real_sample)
-        
-    #     u_x = np.linspace(min(self.real_sample), max(self.real_sample), self.dict_quick_stats["observation period (days)"])
-    #     u_y = stats.norm.cdf(u_x, self.mean, self.std)
-    #     cdf_theoretical = [u_x,u_y]
 
-    #     plt.plot(cdf_empirical[0],cdf_empirical[1])
-    #     plt.plot(cdf_theoretical[0],cdf_theoretical[1])
-        
-    #     plt.savefig("charts/ecdf plot.png")
+        # plot volume and vola
 
-    def VaR_plot(self):
-        
-        self.L1W_returns = np.array(self.log_returns[self.ticker].iloc[0:4])
-        self.L1M_returns = np.array(self.log_returns[self.ticker].iloc[0:21])
+        df_plot2 = self.df_analysis[['volume','vola30d']].sort_index(ascending=True)
+        u_x = df_plot2.index
+        u_y1 = df_plot2.iloc[:,0]
+        u_y2 = df_plot2.iloc[:,1]
 
-        #plot two histograms
-        plt.subplot(121).hist(self.theo_sample, bins=50, alpha = 0.5, lw=0, fill=True)
-        plt.subplot(122).hist(self.real_sample, bins=50, alpha = 0.5, lw=0, fill=True)
+        ax[1,0].bar(u_x,u_y1)
+        ax[1,0].twinx().plot(u_y2,'b')
+        ax[1,0].set_title('Volume and vola')
+        ax[1,0].xaxis.set_major_locator(mdates.MonthLocator())
+        ax[1,0].xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
 
-        plt.subplot(121).hist(self.L1W_returns, bins=50, alpha = 0.5, lw=0, color='red')
-        plt.subplot(122).hist(self.L1M_returns, bins=50, alpha = 0.5, lw=0, color='green')
 
-        #add bell curve
-        xmin, xmax = plt.xlim()
-        x = np.linspace(xmin,xmax,100)
-        p = stats.norm.pdf(x, self.mean,self.std)
+        # plot significant moves
 
-        plt.subplot(121).plot(x, p, 'k', linewidth=0.5)
-        plt.subplot(122).plot(x, p, 'k', linewidth=0.5)
+        df_plot3 = self.df_stats[['date','significant_move']].sort_index(ascending=True)
+        df_plot3.reset_index(inplace=True)
+        df_plot3.set_index(df_plot3['date'],inplace=True)
+        df_plot3.sort_index(ascending=True, inplace=True)
 
-        plt.savefig('charts/VaR plot.png')
-        plt.clf()
+        u_x = df_plot3.index
+        u_y1 = df_plot3.iloc[:,2]
+
+        ax[2,0].bar(u_x,u_y1)
+        ax[2,0].set_title('Significant moves')
+        ax[2,0].xaxis.set_major_locator(mdates.MonthLocator())
+        ax[2,0].xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
+
+        # plot histogram and VaR
+
+        df_plot4 = self.df_stats['log_return']
+
+        # plot log returns
+        u_x = df_plot4.index
+        u_y1 = df_plot4
+
+        ax[0,1].hist(u_y1,bins = 50)
+
+        # plot recent log returns (1 Month)
+        arr_L1M_returns = np.array(df_plot4.iloc[0:21])
+        ax[0,1].hist(arr_L1M_returns,bins = 50, color = "red")
+
+        # plot the normal distribution on top
+        x_min = df_plot4.min()
+        x_max = df_plot4.max()
+        n = len(df_plot4)
+        mean = self.dict_quick_stats['mean']
+        scale = self.dict_quick_stats['std']
+
+        x = np.linspace(x_min,x_max,n)
+        p = stats.norm.pdf(x, mean,scale)
+        ax[0,1].plot(x, p, 'k', linewidth=0.5)
+
+        # add empirical VaR
+        emp_VaR = np.percentile(df_plot4, 1)
+        ax[0,1].axvline(emp_VaR, linestyle='dashed')
+
+        # add theoretical VaR
+        theo_VaR = stats.norm.ppf(0.01, loc=mean, scale=scale)
+        ax[0,1].axvline(theo_VaR, linestyle='dashed', color="black")
+
+        ax[0,1].set_title('Histogram and VaR')
+
+
+        # chart a Q-Q plot
+
+        df_plot5 = self.df_stats[['percentile','theo_percentile']]
+
+        u_x = df_plot5['theo_percentile']
+        u_y1 = df_plot5['theo_percentile']
+        u_y2 = df_plot5['percentile']
+
+        ax[1,1].plot(u_x,u_y1)
+        ax[1,1].scatter(u_x,u_y2,s=2, color = "black")
+        ax[1,1].set_title('Q-Q plot')
+
+
+        # chart a violin plot
+
+        df_plot6 = self.df_stats['log_return']
+
+        ax[2,1].violinplot(df_plot6)
+        ax[2,1].set_title('Violin plot')
+
+
+        # chart an ACF
+
+        df_plot7 = self.df_analysis['log_return']
+
+        plot_acf(df_plot7,ax = ax[0,2])
+
+
+        # chart cdf
+
+        df_plot8 = self.df_stats[['log_return','ecdf']]
+
+        # theoretical
+        x = np.linspace(x_min,x_max,n) #see chart above
+        p = stats.norm.cdf(x, mean,scale)
+        ax[1,2].plot(x, p, 'k', linewidth=0.5)
+
+        # empirical
+        u_x = df_plot8.iloc[:,0]
+        u_y = df_plot8.iloc[:,1]
+        ax[1,2].plot(u_x, u_y, 'k', linewidth=0.5)
+
+        ax[1,2].set_title('ECDF')
+
+
+        # chart some technical indicator (rsi as a placeholder)
+
+        df_plot9 = self.df_analysis[['log_return','rsi']].sort_index(ascending=True)
+
+        u_x = df_plot9.index
+        u_y1 = df_plot9.iloc[:,0]
+        u_y2 = df_plot9.iloc[:,1]
+
+        ax[2,2].bar(u_x,u_y1)
+        ax[2,2].twinx().plot(u_y2,'b')
+        ax[2,2].set_title('Returns and RSI')
+        ax[2,2].xaxis.set_major_locator(mdates.MonthLocator())
+        ax[2,2].xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
+
+        plt.tight_layout()
+        plt.savefig('charts/' + self.ticker + '.png')
 
     # at 99%
-    def VaR_backtesting(self):
-        tail_size = self.period * 0.01
-        theo_VaR_sample = np.percentile(self.theo_sample, 0.01)
-        theo_VaR_pdf = stats.norm.ppf(0.01, loc = self.mean, scale = self.std)
-        real_VaR = np.percentile(self.real_sample, 0.01)
+    # def VaR_backtesting(self):
+    #     tail_size = self.period * 0.01
+    #     theo_VaR_sample = np.percentile(self.theo_sample, 0.01)
+    #     theo_VaR_pdf = stats.norm.ppf(0.01, loc = self.mean, scale = self.std)
+    #     real_VaR = np.percentile(self.real_sample, 0.01)
 
-        li_behind_VaR_theo = self.real_sample[self.real_sample < theo_VaR_pdf]
-        li_behind_VaR_real = self.real_sample[self.real_sample < real_VaR]
+    #     li_behind_VaR_theo = self.real_sample[self.real_sample < theo_VaR_pdf]
+    #     li_behind_VaR_real = self.real_sample[self.real_sample < real_VaR]
 
-    def ACF_plot(self):
+    # def ACF_plot(self):
         
-        plot_acf(self.log_returns).savefig('charts/ACF plot.png')
+    #     plot_acf(self.log_returns).savefig('charts/ACF plot.png')
 
     def save_xlsx(self):
 
