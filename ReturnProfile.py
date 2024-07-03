@@ -10,6 +10,7 @@ from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.distributions.empirical_distribution import ECDF
 import matplotlib.dates as mdates
 from matplotlib.font_manager import FontProperties
+from DownloadFMP import FMP_download
 
 
 #TODO need to agree on the order of the time-series and/or implement the checks
@@ -18,13 +19,14 @@ class asset_performance:
     
     #TODO add optional tickers for references, like broad and narrow market + interest rate
 
-    def __init__(self, ticker):
+    def __init__(self, ticker, b_from_FMP=False):
         
         #self.path = 'c:\\Users\\top kek\\Desktop\\Python\\2_External APIs\\market data\\'
         self.path = 'C:\\Users\\ashve\\Desktop\\Projects\\market data\\'
         self.period = 252
         self.ticker = ticker
-        
+        self.b_from_FMP = b_from_FMP
+
         lst_columns=['close','volume','log_return','vola30d','vola90d','vwap30d','vwap90d','adtv30d','adtv90d','rsi','obv','obv30d','obv90d','ma30d','ma90d','ewm']
         self.df_analysis = pd.DataFrame(columns=lst_columns)
         
@@ -49,15 +51,24 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
-        self.save_xlsx()
+        #self.save_xlsx()
         self.prepare_a_chart()
 
 
     def download_data_for_a_ticker(self):
         
-        df_temp = pd.read_csv(self.path + self.ticker + '.csv')
-        df_temp = df_temp.set_index('date')
+        if self.b_from_FMP:
         
+            cls_FMP = FMP_download(self.ticker)
+            df_temp = cls_FMP.df_output
+
+        else:
+
+            df_temp = pd.read_csv(self.path + self.ticker + '.csv')
+        
+        df_temp.to_excel('xlsx/temp.xlsx')
+        df_temp = df_temp.set_index('date')
+            
         # there is more data, adjClose is a starter
         self.df_analysis['close'] = df_temp[['adjClose']]
         self.df_analysis['volume'] = df_temp[['volume']]
@@ -516,4 +527,4 @@ class asset_performance:
         self.df_stats.to_excel('xlsx/stats.xlsx')
         self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
-df_check = asset_performance("ADBE")
+#df_check = asset_performance("ADBE")
