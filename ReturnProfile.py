@@ -468,7 +468,7 @@ class asset_performance:
 
         # chart an ACF
 
-        df_plot7 = self.df_analysis['log_return']
+        df_plot7 = self.df_analysis['log_return'].dropna()
 
         plot_acf(df_plot7,ax = ax[0,2])
 
