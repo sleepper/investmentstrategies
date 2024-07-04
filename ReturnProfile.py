@@ -507,19 +507,6 @@ class asset_performance:
         plt.tight_layout()
         plt.savefig('charts/' + self.ticker + '.png')
 
-    # at 99%
-    # def VaR_backtesting(self):
-    #     tail_size = self.period * 0.01
-    #     theo_VaR_sample = np.percentile(self.theo_sample, 0.01)
-    #     theo_VaR_pdf = stats.norm.ppf(0.01, loc = self.mean, scale = self.std)
-    #     real_VaR = np.percentile(self.real_sample, 0.01)
-
-    #     li_behind_VaR_theo = self.real_sample[self.real_sample < theo_VaR_pdf]
-    #     li_behind_VaR_real = self.real_sample[self.real_sample < real_VaR]
-
-    # def ACF_plot(self):
-        
-    #     plot_acf(self.log_returns).savefig('charts/ACF plot.png')
 
     def save_xlsx(self):
 
