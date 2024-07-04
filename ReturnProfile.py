@@ -351,11 +351,11 @@ class asset_performance:
 
         plt.rcParams['font.family'] = 'serif'
         plt.rcParams['font.serif'] = 'Consolas'
-        plt.rcParams['font.size'] = 8
-        plt.rcParams['axes.titlesize'] = 10  # Title font size
-        plt.rcParams['axes.labelsize'] = 8  # Axis label font size
-        plt.rcParams['xtick.labelsize'] = 8  # X-tick label font size
-        plt.rcParams['ytick.labelsize'] = 8  # Y-tick label font size
+        plt.rcParams['font.size'] = 10
+        plt.rcParams['axes.titlesize'] = 12  # Title font size
+        plt.rcParams['axes.labelsize'] = 10  # Axis label font size
+        plt.rcParams['xtick.labelsize'] = 10  # X-tick label font size
+        plt.rcParams['ytick.labelsize'] = 10  # Y-tick label font size
         plt.rcParams['figure.figsize'] = [19, 12]
 
         plt.gcf().autofmt_xdate()
@@ -422,7 +422,6 @@ class asset_performance:
         arr_L1M_returns = np.array(df_temp['log_return'].iloc[0:21])
 
         ax[0,1].hist(arr_L1M_returns, bins=50, color = "red")
-        print(arr_L1M_returns)
 
         # plot the normal distribution on top
         x_min = df_plot4['log_return'].min()
@@ -528,4 +527,4 @@ class asset_performance:
         self.df_stats.to_excel(f'xlsx/{self.ticker}_stats.xlsx')
         #self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
-df_check = asset_performance("NVDA")
+#df_check = asset_performance("NVDA")
