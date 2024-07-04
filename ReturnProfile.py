@@ -51,7 +51,7 @@ class asset_performance:
         self.compute_vola()
         self.sort_prices()
         self.commpute_order_statistics()
-        #self.save_xlsx()
+        self.save_xlsx()
         self.prepare_a_chart()
 
 
@@ -66,7 +66,6 @@ class asset_performance:
 
             df_temp = pd.read_csv(self.path + self.ticker + '.csv')
         
-        df_temp.to_excel('xlsx/temp.xlsx')
         df_temp = df_temp.set_index('date')
             
         # there is more data, adjClose is a starter
@@ -139,7 +138,8 @@ class asset_performance:
 
         def func_vwap(df):
 
-            df_temp = df
+            df_temp = df.copy()
+            #df_temp['weights'] = df_temp['volume'] / df_temp['volume'].sum()
             df_temp['weights'] = df_temp['volume'] / df_temp['volume'].sum()
             vwap = (df_temp['close'] * df_temp['weights']).sum()
 
@@ -148,12 +148,12 @@ class asset_performance:
         
         for i in range(0,n-lst_vwap_range[0]+1):
 
-            df_temp['vwap30d'].iloc[i] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[0]])
+            df_temp.loc[i,'vwap30d'] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[0]])
             #df_temp.loc[i,'vwap30d'] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[0]])
             
         for i in range(0,n-lst_vwap_range[1]+1):
 
-            df_temp['vwap90d'].iloc[i] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[1]])
+            df_temp.loc[i,'vwap90d'] = func_vwap(df_temp.iloc[i:i+lst_vwap_range[1]])
         
         
         self.df_analysis['vwap30d'] = df_temp['vwap30d']
@@ -208,8 +208,8 @@ class asset_performance:
         df_temp['volume'] = self.df_analysis['volume']
         df_temp['log_return'] = self.df_analysis['log_return']
 
-        df_temp['sign'] = (df_temp['log_return'] >= 0).replace({True:1, False:-1})
-        
+        df_temp['sign'] = np.where(df_temp['log_return'] >= 0,1,-1)
+
         df_temp['obv'] = df_temp['volume'] * df_temp['sign']
         
         df_temp.sort_index(ascending=True, inplace=True)
@@ -244,8 +244,6 @@ class asset_performance:
 
         self.df_analysis['vola30d'] = df_temp['vola30d']
         self.df_analysis['vola90d'] = df_temp['vola90d']
-
-        self.df_analysis.to_excel('xlsx/analysis.xlsx')
 
         del df_temp
 
@@ -411,21 +409,24 @@ class asset_performance:
 
         # plot histogram and VaR
 
-        df_plot4 = self.df_stats['log_return']
+        df_plot4 = self.df_stats[['log_return','date']]
 
         # plot log returns
         u_x = df_plot4.index
-        u_y1 = df_plot4
+        u_y1 = df_plot4['log_return']
 
         ax[0,1].hist(u_y1,bins = 50)
 
         # plot recent log returns (1 Month)
-        arr_L1M_returns = np.array(df_plot4.iloc[0:21])
-        ax[0,1].hist(arr_L1M_returns,bins = 50, color = "red")
+        df_temp = df_plot4.sort_values(by='date',ascending=False)
+        arr_L1M_returns = np.array(df_temp['log_return'].iloc[0:21])
+
+        ax[0,1].hist(arr_L1M_returns, bins=50, color = "red")
+        print(arr_L1M_returns)
 
         # plot the normal distribution on top
-        x_min = df_plot4.min()
-        x_max = df_plot4.max()
+        x_min = df_plot4['log_return'].min()
+        x_max = df_plot4['log_return'].max()
         n = len(df_plot4)
         mean = self.dict_quick_stats['mean']
         scale = self.dict_quick_stats['std']
@@ -435,7 +436,7 @@ class asset_performance:
         ax[0,1].plot(x, p, 'k', linewidth=0.5)
 
         # add empirical VaR
-        emp_VaR = np.percentile(df_plot4, 1)
+        emp_VaR = np.percentile(df_plot4['log_return'], 1)
         ax[0,1].axvline(emp_VaR, linestyle='dashed')
 
         # add theoretical VaR
@@ -523,8 +524,8 @@ class asset_performance:
 
     def save_xlsx(self):
 
-        self.df_analysis.to_excel('xlsx/analysis.xlsx')
-        self.df_stats.to_excel('xlsx/stats.xlsx')
-        self.df_pdf.to_excel('xlsx/pdf.xlsx')
+        self.df_analysis.to_excel(f'xlsx/{self.ticker}_analysis.xlsx')
+        self.df_stats.to_excel(f'xlsx/{self.ticker}_stats.xlsx')
+        #self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
-#df_check = asset_performance("ADBE")
+df_check = asset_performance("NVDA")
