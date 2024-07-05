@@ -11,7 +11,7 @@ from statsmodels.distributions.empirical_distribution import ECDF
 import matplotlib.dates as mdates
 from matplotlib.font_manager import FontProperties
 from DownloadFMP import FMP_download
-
+import os
 
 #TODO need to agree on the order of the time-series and/or implement the checks
 
@@ -26,6 +26,8 @@ class asset_performance:
         self.period = 252
         self.ticker = ticker
         self.b_from_FMP = b_from_FMP
+        self.str_folder = f'profiles/{ticker}/'
+        os.makedirs(self.str_folder, exist_ok=True)
 
         lst_columns=['close','volume','log_return','vola30d','vola90d','vwap30d','vwap90d','adtv30d','adtv90d','rsi','obv','obv30d','obv90d','ma30d','ma90d','ewm']
         self.df_analysis = pd.DataFrame(columns=lst_columns)
@@ -505,13 +507,15 @@ class asset_performance:
         ax[2,2].xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
 
         plt.tight_layout()
-        plt.savefig('charts/' + self.ticker + '.png')
+        plt.savefig(self.str_folder + '_stats_profile.png')
+        plt.clf()
 
 
     def save_xlsx(self):
 
-        self.df_analysis.to_excel(f'xlsx/{self.ticker}_analysis.xlsx')
-        self.df_stats.to_excel(f'xlsx/{self.ticker}_stats.xlsx')
+        str_path = self.str_folder
+        self.df_analysis.to_excel(str_path + '_analysis.xlsx')
+        self.df_stats.to_excel(str_path + '_stats.xlsx')
         #self.df_pdf.to_excel('xlsx/pdf.xlsx')
 
 #df_check = asset_performance("NVDA")
