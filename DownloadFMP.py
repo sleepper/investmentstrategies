@@ -16,6 +16,15 @@ def request_FMP_data(ticker, SDate, EDate):
     #self.logger.info(f'Sending the following request {url}')
     return r.json()
 
+def request_financials(ticker):
+    api_key = '1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF'
+    data_type = 'income-statement'
+    period = 'quarter'
+    url = f"https://financialmodelingprep.com/api/v3/{data_type}/{ticker}?period={period}&apikey={api_key}"
+    print(url)
+    r = requests.get(url)
+    #self.logger.info(f'Sending the following request {url}')
+    return r.json()
 
 # Function to check if FMP json output is reliable
 def request_is_good(json_r):
@@ -36,9 +45,9 @@ class FMP_download:
         
         self.ticker = ticker
         self.SDate = kwargs.get('SDate','2024-07-01')
-        self.EDate = kwargs.get('EDate','2021-01-01')
+        self.EDate = kwargs.get('EDate','2024-01-01')
         self.df_output = pd.DataFrame()
-        self.run_individual_request()
+        self.market_data()
 
 
     def run_bulk_request(self):
@@ -62,7 +71,7 @@ class FMP_download:
 
             return b_return
 
-    def run_individual_request(self):
+    def market_data(self):
 
         data = request_FMP_data(self.ticker, self.SDate, self.EDate)
         self.data = data
@@ -80,6 +89,16 @@ class FMP_download:
         else:
 
             print(f'Could not download the market data for the ticker: {self.ticker}.')
+
+    def financial_statement(self):
+
+        data = request_financials(self.ticker)
+        self.data = data
+
+        return data
+
+
+
 
 
 # cls_request = FMP_download('ADBE')
