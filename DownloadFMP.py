@@ -16,12 +16,20 @@ def request_FMP_data(ticker, SDate, EDate):
     #self.logger.info(f'Sending the following request {url}')
     return r.json()
 
-def request_financials(ticker):
+def request_financials(ticker, fs_type, frequency='annual'):
+    
     api_key = '1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF'
-    data_type = 'income-statement'
-    period = 'quarter'
-    url = f"https://financialmodelingprep.com/api/v3/{data_type}/{ticker}?period={period}&apikey={api_key}"
+    
+    if fs_type == 'IS':
+        data_type = 'income-statement'
+    if fs_type == 'BS':
+        data_type = 'balance-sheet-statement'
+    if fs_type == 'CF':
+        data_type = 'cash-flow-statement'
+
+    url = f"https://financialmodelingprep.com/api/v3/{data_type}/{ticker}?period={frequency}&apikey={api_key}"
     print(url)
+    
     r = requests.get(url)
     #self.logger.info(f'Sending the following request {url}')
     return r.json()
