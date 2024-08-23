@@ -8,6 +8,7 @@ import csv
 
 # API bridge
 def request_FMP_data(ticker, SDate, EDate):
+    
     api_key = '1ZxcVL8gBZIFARcf1f9lOR4SZsK1lTSF'
     data_type = 'historical-price-full'
     url = f"https://financialmodelingprep.com/api/v3/{data_type}/{ticker}?from={EDate}&to={SDate}&apikey={api_key}"
@@ -55,7 +56,7 @@ class FMP_download:
         self.SDate = kwargs.get('SDate','2024-07-01')
         self.EDate = kwargs.get('EDate','2024-01-01')
         self.df_output = pd.DataFrame()
-        self.market_data()
+        #self.market_data()
 
 
     def run_bulk_request(self):
@@ -98,10 +99,10 @@ class FMP_download:
 
             print(f'Could not download the market data for the ticker: {self.ticker}.')
 
-    def financial_statement(self):
+    def financial_statement(self,fs_type:str):
 
-        data = request_financials(self.ticker)
-        self.data = data
+        data = pd.json_normalize(request_financials(self.ticker,fs_type=fs_type))
+        #self.data = pd.json_normalize(data)
 
         return data
 
