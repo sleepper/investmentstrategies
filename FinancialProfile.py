@@ -83,14 +83,12 @@ class financial_performance:
 
         df_inputs[['capex','change in wc','buybacks','dividends']] = df_CF        
 
-        df_calcs:DataFrame = pd.DataFrame(columns=['calendarYear',
-                                                   'EBIT',
+        df_calcs:DataFrame = pd.DataFrame(columns=['EBIT',
                                                    'working capital',
                                                    'capital distributions',
                                                    'interest expense'],
                                           index=self.FYears)
         
-        df_calcs.set_index('calendarYear',inplace=True)
         df_calcs.index.name = 'CY'
 
         df_calcs['EBIT'] = df_inputs['revenue'] - df_inputs['cogs'] - df_inputs['sg&a']
