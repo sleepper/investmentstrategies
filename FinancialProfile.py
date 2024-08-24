@@ -13,7 +13,33 @@ class financial_performance:
         self.b_from_FMP:bool = b_from_FMP
         self.str_folder:str = f'profiles/{ticker}/'
         os.makedirs(self.str_folder, exist_ok=True)
-        self.FYears:list = ['2017','2018','2019','2020','2021','2022','2023']
+        self.FYears:list = ['2015','2016','2017','2018','2019','2020','2021','2022','2023']
+
+        self.df_inputs:DataFrame = pd.DataFrame(columns=['revenue',
+                                                         'cogs',
+                                                         'sg&a',
+                                                         'd&a',
+                                                         'r&d',
+                                                         'capex',
+                                                         'taxes',
+                                                         'interest income',
+                                                         'interest expense',
+                                                         'current assets',
+                                                         'current liabilities',
+                                                         'change in wc',
+                                                         'buybacks',
+                                                         'dividends',
+                                                         'receivables',
+                                                         'payables',
+                                                         'inventory',
+                                                         'cash',
+                                                         'st investments',
+                                                         'st debt',
+                                                         'lt debt',
+                                                         'leasing'],
+                                                index=self.FYears)
+        self.df_inputs.index.name = 'CY'
+
 
     def download_statements(self):
         
@@ -31,31 +57,22 @@ class financial_performance:
 
     def cash_flow_dynamics(self):
 
-        df_inputs:DataFrame = pd.DataFrame(columns=['revenue',
-                                                    'cogs',
-                                                    'sg&a',
-                                                    'd&a',
-                                                    'r&d',
-                                                    'capex',
-                                                    'taxes',
-                                                    'interest income',
-                                                    'interest expense',
-                                                    'current assets',
-                                                    'current liabilities',
-                                                    'change in wc',
-                                                    'buybacks',
-                                                    'dividends'],
-                                            index=self.FYears)
-        df_inputs.index.name = 'CY'
-
         df_BS:DataFrame = self.df_BS[['calendarYear',
                                       'totalCurrentAssets',
-                                      'totalCurrentLiabilities']]
+                                      'totalCurrentLiabilities',
+                                      'netReceivables',
+                                      'accountPayables',
+                                      'inventory',
+                                      'cashAndCashEquivalents',
+                                      'shortTermInvestments',
+                                      'shortTermDebt',
+                                      'longTermDebt',
+                                      'capitalLeaseObligations']]
 
         df_BS.set_index('calendarYear',inplace=True)
         df_BS.index.name = 'CY'
 
-        df_inputs[['current assets','current liabilities']] = df_BS
+        self.df_inputs[['current assets','current liabilities','receivables','payables','inventory','cash','st investments','st debt','lt debt','leasing']] = df_BS
 
         df_IS:DataFrame = self.df_IS[['calendarYear',
                                       'revenue',
@@ -70,7 +87,7 @@ class financial_performance:
         df_IS.set_index('calendarYear',inplace=True)
         df_IS.index.name = 'CY'
 
-        df_inputs[['revenue','cogs','sg&a','d&a','r&d','taxes','interest income','interest expense']] = df_IS
+        self.df_inputs[['revenue','cogs','sg&a','d&a','r&d','taxes','interest income','interest expense']] = df_IS
 
         df_CF:DataFrame = self.df_CF[['calendarYear',
                                       'investmentsInPropertyPlantAndEquipment',
@@ -81,20 +98,49 @@ class financial_performance:
         df_CF.set_index('calendarYear',inplace=True)
         df_CF.index.name = 'CY'
 
-        df_inputs[['capex','change in wc','buybacks','dividends']] = df_CF        
+        self.df_inputs[['capex','change in wc','buybacks','dividends']] = df_CF        
 
+        df_inputs:DataFrame = self.df_inputs
+        
         df_calcs:DataFrame = pd.DataFrame(columns=['EBIT',
+                                                   'op income',
                                                    'working capital',
                                                    'capital distributions',
-                                                   'interest expense'],
+                                                   'interest expense',
+                                                   'sales growth',
+                                                   'gp margin',
+                                                   'EBITDA margin',
+                                                   'EBIT margin',
+                                                   'wc turnover',
+                                                   'receivables turnover',
+                                                   'inventory turnover',
+                                                   'payables turnover',
+                                                   'gross profit',
+                                                   'EBITDA',
+                                                   'net debt',
+                                                   'leverage',
+                                                   'wc ratio',
+                                                   'solvency ratio'],
                                           index=self.FYears)
         
         df_calcs.index.name = 'CY'
 
         df_calcs['EBIT'] = df_inputs['revenue'] - df_inputs['cogs'] - df_inputs['sg&a']
+        df_calcs['EBIT margin'] = df_calcs['EBIT'] / df_inputs['revenue']
         df_calcs['interest expense'] = df_inputs['interest expense'] - df_inputs['interest income']
+        df_calcs['op income'] = df_calcs['EBIT'] - df_inputs['taxes']
         df_calcs['working capital'] = df_inputs['current assets'] - df_inputs['current liabilities']
         df_calcs['capital distributions'] = df_inputs['dividends'] + df_inputs['buybacks'].abs()
+        df_calcs['EBITDA'] = df_calcs['EBIT'] + df_inputs['d&a']
+        df_calcs['gross profit'] = df_inputs['revenue'] - df_inputs['cogs']
+        df_calcs['gp margin'] = df_calcs['gross profit'] / df_inputs['revenue']
+        df_calcs['EBITDA margin'] = df_calcs['EBITDA'] / df_inputs['revenue']
+        df_calcs['sales growth'] = df_inputs['revenue'] / df_inputs['revenue'].shift(1)
+        df_calcs['net debt'] = df_inputs['cash'] - df_inputs['st debt'] - df_inputs['lt debt'] - df_inputs['leasing']
+        df_calcs['leverage'] = df_calcs['net debt'] / df_calcs['EBITDA']
+        df_calcs['interest cover'] = df_calcs['EBIT'] / df_calcs['interest expense']
+        df_calcs['wc ratio'] = df_inputs['current assets'] / df_inputs['current liabilities']
+        df_calcs['solvency ratio'] = (df_calcs['op income'] + df_inputs['d&a']) / df_calcs['net debt']
 
         df_inputs.to_excel('inputs.xlsx')
         df_calcs.to_excel('calcs.xlsx')
