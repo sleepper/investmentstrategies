@@ -3,8 +3,8 @@ import numpy as np
 import os
 from datetime import timedelta, date
 import matplotlib.pyplot as plt
-import scipy.stats as stats
 import seaborn as sns
+import scipy.stats as stats
 from PIL import Image
 from statsmodels.graphics.tsaplots import plot_acf
 from statsmodels.distributions.empirical_distribution import ECDF
