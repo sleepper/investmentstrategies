@@ -27,6 +27,9 @@ def request_financials(ticker, fs_type, frequency='annual'):
         data_type = 'balance-sheet-statement'
     if fs_type == 'CF':
         data_type = 'cash-flow-statement'
+    if fs_type == 'DIV':
+        data_type = 'stock_dividend'
+    
 
     url = f"https://financialmodelingprep.com/api/v3/{data_type}/{ticker}?period={frequency}&apikey={api_key}"
     print(url)

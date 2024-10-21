@@ -57,6 +57,9 @@ class financial_performance:
 
         self.df_CF:DataFrame = FMP_download(self.ticker).financial_statement('CF')
         self.df_CF.to_excel(str_path + '_CF.xlsx')
+
+        self.df_BS:DataFrame = FMP_download(self.ticker).financial_statement('DIV')
+        self.df_BS.to_excel(str_path + '_DIV.xlsx')
         
 
     def calcs(self):
@@ -150,11 +153,13 @@ class financial_performance:
         df_inputs.to_excel('profiles/ADBE/inputs.xlsx')
         df_calcs.to_excel('profiles/ADBE/calcs.xlsx')
 
-    def chart_results(self):
+    def slide_helicopter_view(self):
 
         df_inputs:DataFrame = self.df_inputs
         df_calcs:DataFrame = self.df_calcs
+        df_text:DataFrame = pd.DataFrame()
 
+        
 
 
 
