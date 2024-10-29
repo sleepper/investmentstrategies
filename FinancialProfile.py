@@ -160,10 +160,6 @@ class financial_performance:
         df_text:DataFrame = pd.DataFrame()
 
         
-
-
-
-
 cls_ADBE = financial_performance('ADBE')
 cls_ADBE.download_statements()
 cls_ADBE.calcs()
