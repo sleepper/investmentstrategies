@@ -1,9 +1,10 @@
 import logging
 from openai import OpenAI
 
+from telegram import Update, InlineQueryResultArticle, InputTextMessageContent, Bot
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, filters, MessageHandler, InlineQueryHandler, Application
 
-from telegram import Update, InlineQueryResultArticle, InputTextMessageContent
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, filters, MessageHandler, InlineQueryHandler
+import pandas as pd
 
 # Set up the logger
 
@@ -29,6 +30,18 @@ def business_description(str_company_name:str):
     )
 
     return response.choices[0].message.content
+
+data = {
+        'Name':['Alex','Alexander'],
+        'Age':[1,31]
+    }
+
+df = pd.DataFrame(data)
+
+def print_table(df_input:pd.DataFrame):
+
+    # Print a prepared dataframe into the bot
+    return df_input
 
 # Function to process the specific type of update, i.e. /start update
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -67,6 +80,9 @@ async def inline_caps(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Function to process the unknown commands
 async def unknown(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, I didn't understand that command.")
+
+async def post_init(application: Application) -> None:
+    await application.bot.set_my_commands([('kek','4eburek')])
 
 if __name__ == '__main__':
     
